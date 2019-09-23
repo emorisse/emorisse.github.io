@@ -1,0 +1,35 @@
+---
+layout: post
+title: With Eight Friends, I Know the World
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: private
+categories: []
+tags: []
+meta:
+  _edit_last: '2'
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/with-eight-friends-i-know-the-world/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<br />
+<h2>[Reposted from Daniele Quercia's excellent <a href="http://mobblog.cs.ucl.ac.uk/2009/05/20/8-friends-are-enough/">MobLog</a>]</h2>
+<p>New article by Ross Anderson’s group. It’s beautiful in its simplicity. “<a href="http://www.cl.cam.ac.uk/%7Ejcb82/8_friends_paper.pdf">Eight Friends are Enough: Social Graph Approximation via Public Listings</a> shows how easy it is for an outsider to work out the structure of friendships on Facebook. (For more, see our blog on Facebook’s<a href="http://www.lightbluetouchpaper.org/2009/03/31/facebook-giving-a-bit-too-much-away/"> technical privacy</a> and its <a href="http://www.lightbluetouchpaper.org/2009/03/29/commentary-on-facebooks-terms-of-service/">democracy theatre</a>.) ”</p>
+<p><strong>In short:</strong> Having</p>
+<ul>
+<li><em>G</em>: undirected graph (e.g., Facebook social net)</li>
+<li><em>Gk</em>: publicly available portion of <em>G</em> (one in which <em>k</em> outgoing friendship edges have been randomly chosen from <em>G</em>),</li>
+</ul>
+<p>they show that the results of applying a certain function <em>f</em> (e.g., centrality, shortest paths, community structure)  on <em>Gk</em> are simlar to those of  applying <em>f</em> on the entire <em>G</em>! That is, by using the public view (<em>Gk</em>), one is able to infer node centralities, shortest paths, and community structures of the whole <em>G</em>! Scary result for privacy-conscius people! But good news for researchers who need to handle big networks <img class="wp-smiley" src="{{ site.baseurl }}/assets/icon_wink.gif" alt=";-)" /> On the scary side, from a partial (public) view of a social network, one is able to guess</p>
+<ul>
+<li>which nodes are central - e.g., 1) marketing companies are able to  identify influential individuals and virally spread products through them; or 2) during protests that are <a href="http://www.economist.com/research/backgrounders/displaystory.cfm?story_id=9367055&amp;source=login_payBarrier">self-orginized via text messages</a>, repressive governments are able to identify influential individuals and intercept  their text traffic.</li>
+<li>communities - the authors “were ableto divide the [partial] graph into communities nearly as well as using complete graph knowledge.” (Sect 3.5)</li>
+</ul>

@@ -1,0 +1,107 @@
+---
+layout: post
+title: City Green as a Function of City Parks
+date: 2013-04-09 18:36:27.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Research
+tags: []
+meta:
+  rcp_user_level: None
+  _edit_last: '2'
+  rcFeedHide: 'on'
+  thesis_thumb_width: '66'
+  _wpas_done_all: '1'
+  _wplp_post_front: '1'
+  _wplp_post_feed: '1'
+  _wp_old_slug: '1074'
+  thesis_thumb_height: '66'
+  _wp_rp_image: empty
+  _wp_rp_related_posts_query_result_cache_expiration: '1557166159'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:4:"1128";s:5:"score";s:17:"58.22018803438861";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"30.28794853251379";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1139";s:5:"score";s:18:"28.419050835562484";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1306";s:5:"score";s:18:"20.638226436464134";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:4:"1273";s:5:"score";s:18:"20.214974085446265";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:2:"64";s:5:"score";s:18:"19.653957256628363";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:3:"895";s:5:"score";s:18:"19.064561079369817";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1292";s:5:"score";s:18:"18.769328739512826";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:4:"1258";s:5:"score";s:18:"18.769328739512826";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:4:"1328";s:5:"score";s:17:"17.04323630488973";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:17:"16.60240695567455";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:4:"1052";s:5:"score";s:17:"16.60240695567455";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554280798;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:1128;}i:1;a:1:{s:2:"id";i:1412;}i:2;a:1:{s:2:"id";i:1052;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/city-green-as-a-function-of-city-parks/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				<a href="http://www.howweknowus.com/wp-content/uploads/2013/04/Naturehoods-Explorer-Stanford-University.png"><img class="alignright size-medium wp-image-1083" alt="Naturehoods Explorer :: Stanford University" src="{{ site.baseurl }}/assets/Naturehoods-Explorer-Stanford-University-300x142.png" width="300" height="142" /></a>I stumbled across the <a href="http://citynature.stanford.edu/">City Nature project at Stanford</a> via some interesting interactive data visualization they have created like the <a href="http://citynature.stanford.edu/chart.html">comparison between natural and social variables</a> and the <a href="http://citynature.stanford.edu/naturehoods/hoodscope.html#">Naturehoods Explorer</a> for 34 US cities.</p>
+<p>One of the comments in the comparison chart (first project link), was lack of clear relationships between any of the provided variables. As I'm a glutton for punishment, I thought I'd give it a go.</p>
+<p>With the addition of only two variables at the City level to the data provided by the Naturehoods Explorer, I was able to get a good start on a linear regression model. The two variables added are city population and number of parks in the city.</p>
+<p>Below are results to linear regression models through R.</p>
+<pre>&gt; summary(lm(park_count ~ . , data =g2))
+
+Call:
+lm(formula = park_count ~ ., data = g2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-267.25  -42.72   -2.30   56.81  189.01 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  5.636e+01  4.260e+01   1.323 0.185897    
+greenness    4.061e+02  3.640e+01  11.157  &lt; 2e-16 ***
+pavedness   -1.881e+01  1.861e+01  -1.011 0.312164    
+pct_park    -7.069e+01  1.416e+01  -4.994 6.30e-07 ***
+park_need   -7.382e+00  4.833e+00  -1.528 0.126742    
+popdens      4.525e-04  1.780e-04   2.542 0.011090 *  
+h_inc        5.544e-04  1.293e-04   4.288 1.87e-05 ***
+home_val    -2.578e-04  2.129e-05 -12.110  &lt; 2e-16 ***
+pct_own      4.294e+01  1.184e+01   3.627 0.000292 ***
+diversity    5.461e-01  9.816e-02   5.563 2.91e-08 ***
+nonwhite    -8.912e+01  7.936e+00 -11.230  &lt; 2e-16 ***
+parkspeak   -2.449e+02  3.087e+01  -7.933 3.12e-15 ***
+lng         -6.429e-02  1.508e-01  -0.426 0.669870    
+lat         -7.898e+00  3.937e-01 -20.060  &lt; 2e-16 ***
+population   1.649e-05  1.372e-06  12.023  &lt; 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Residual standard error: 77.24 on 2646 degrees of freedom
+Multiple R-squared: 0.447,	Adjusted R-squared: 0.4441 
+F-statistic: 152.8 on 14 and 2646 DF,  p-value: &lt; 2.2e-16</pre>
+<p>I also normalized the fields, except park_count, to get a feel of the relative impact of the individual variables across their very different scales.  The estimate indicates a change by one standard deviation of the variable.</p>
+<pre>&gt; summary(lm(park_count ~ . , data =g3))
+
+Call:
+lm(formula = park_count ~ ., data = g3)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-267.25  -42.72   -2.30   56.81  189.01 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 152.7865     1.4973 102.043  &lt; 2e-16 ***
+greenness    21.2528     1.9048  11.157  &lt; 2e-16 ***
+pavedness    -2.1510     2.1278  -1.011 0.312164    
+pct_park     -8.3974     1.6815  -4.994 6.30e-07 ***
+park_need    -2.8265     1.8503  -1.528 0.126742    
+popdens       6.0435     2.3778   2.542 0.011090 *  
+h_inc        15.4520     3.6039   4.288 1.87e-05 ***
+home_val    -43.8665     3.6222 -12.110  &lt; 2e-16 ***
+pct_own       8.2300     2.2691   3.627 0.000292 ***
+diversity    11.1726     2.0082   5.563 2.91e-08 ***
+nonwhite    -21.6853     1.9311 -11.230  &lt; 2e-16 ***
+parkspeak   -14.3325     1.8066  -7.933 3.12e-15 ***
+lng          -0.9985     2.3418  -0.426 0.669870    
+lat         -40.1728     2.0026 -20.060  &lt; 2e-16 ***
+population   28.5058     2.3710  12.023  &lt; 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Residual standard error: 77.24 on 2646 degrees of freedom
+Multiple R-squared: 0.447,	Adjusted R-squared: 0.4441 
+F-statistic: 152.8 on 14 and 2646 DF,  p-value: &lt; 2.2e-16</pre>
+<p>For explanations of the data, collection method, etc., please see the City Nature Project.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/04/biggreen.csv">Data updated with new city vaules in csv format</a>		</p>

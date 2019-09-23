@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Load Volatility and Resource Planning for your Cloud</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Load Volatility and Resource Planning for your Cloud" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/load-volatility-and-resource-planning-for-your-cloud/" />
+<meta property="og:url" content="http://localhost:4000/load-volatility-and-resource-planning-for-your-cloud/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-04-02T16:44:56-04:00" />
+<script type="application/ld+json">
+{"dateModified":"2013-04-02T16:44:56-04:00","datePublished":"2013-04-02T16:44:56-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/load-volatility-and-resource-planning-for-your-cloud/"},"url":"http://localhost:4000/load-volatility-and-resource-planning-for-your-cloud/","@type":"BlogPosting","headline":"Load Volatility and Resource Planning for your Cloud","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/"></a></h1>
+        
+        
+
+        <p></p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>2 April 2013</small>
+<h1>Load Volatility and Resource Planning for your Cloud</h1>
+
+<p class="view">by erich</p>
+
+<p>
+				Having your own cloud does not mean you are out of the resource planning business, but it does make the job a lot easier. If you collect the right data, <a title="Measuring Load in the Cloud: Correcting for Seasonality" href="http://www.howweknowus.com/2013/03/28/measuring-load-in-the-cloud-correcting-for-seasonality/">with the application of some well understood statistical practices</a>, you can break the work down into two different tasks: supporting workload volatility and resource planning.</p>
+<p>If the usage of our applications was changing in a predictable fashion, resource planning would be easy.  But that's not always the case, and volatility can make it very difficult to tell what is a short term change and what is part of a long term trend.  Here are some steps to help you prioritize systems for consolidation, get ahead of future capacity problems, and understand long term trends to assist in purchasing behaviors. Our example is with data extracted from <a href="http://www.redhat.com/products/cloud-computing/">Red Hat's ManageIQ</a> cloud management software.</p>
+<p>Usually, we collect and see our performance over X periods of time, where X is a small number and we don't get much insight. More data points are help, but require a lot of storage. ManageIQ natively provides data rollup of metrics, to provide a great balance between the two.  Since we want to compare short term to long term for trends, we lose little using the rollup data.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/04/shortterm.png"><img class="alignright size-full wp-image-1056" alt="shortterm" src="/assets/shortterm.png" width="480" height="480" /></a>Our graphs look at the CPU utilization history of four systems. The first graph looks only at the short term data, smoothed (using a <a title="Measuring Load in the Cloud: Correcting for Seasonality" href="http://www.howweknowus.com/2013/03/28/measuring-load-in-the-cloud-correcting-for-seasonality/">process similar to the one described here</a>) over one minute intervals. We smooth the data to reduce the impact of intra-period volatility on our predictions. The method described corrects for "seasonality" within the periods, e.g. CPU utilization on Mondays could be predictably higher than on Tuesdays as customers come back to work and get things done they could not over the weekend. The <span style="color: #0000ff;">blue</span> dot is the <span style="color: #0000ff;">highest</span> utilization, and <span style="color: #ff0000;">red</span>, the <span style="color: #ff0000;">lowest</span> over the period.<!--more--></p>
+<p>From this first graph of short term utilization, we learn little except the first server is pegged, which we would have been able to figure out from any alerting service or solution we use.  Not very interesting.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/04/rollupWeek.png"><img class="size-full wp-image-1055 alignleft" alt="rollupWeek" src="/assets/rollupWeek.png" width="480" height="480" /></a>Next, we look at longer term data smoothed over weekly usage. Looks like the server at the top of the graph has been pegged for a long time. Not much here, but the middle two show a distinct increase in average utilization over time.  They are well under 100% utilization, but good servers to keep an eye on for future offload and load balancing candidates. The fourth, and bottom, server for which we saw low but highly volatile utilization over the one minute intervals, we see a gentle rise in utilization.  It's tough to see, but we know this as the <span style="color: #ff0000;">low utilization mark</span> is not at the end.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/04/rollupWeekBackground.png"><img class="alignright size-full wp-image-1053" alt="rollupWeekBackground" src="/assets/rollupWeekBackground.png" width="480" height="480" /></a>To compare these trends with the data, we add back in the "unsmoothed" data. I would probably generally use this one over the just the trend, as a subtle reminder that the trend is a model, and not the actual data.</p>
+<p>Finally, since we have the data and the seasonalites already calculated, we can do some predictions of expected CPU utilization taking into account the regular and changing patterns within a "season."</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/04/rollupWeekForecast.png"><img class="alignleft size-full wp-image-1054" alt="rollupWeekForecast" src="/assets/rollupWeekForecast.png" width="480" height="480" /></a>This graph shows the same unsmoothed data we see in the background of our third graph, and adds a prediction of the utilization in the<span style="color: #0000ff;"> future (blue line)</span>. Surrounding it, are the <span style="color: #545454;">80% (dark gray)</span> and<span style="color: #808080;"> 95% (light gray)</span> <a href="http://en.wikipedia.org/wiki/Confidence_interval">confidence intervals</a>.</p>
+<p>The<span style="color: #0000ff;"> blue line</span> indicates where the model suggests the utilization will be, but like many good models we explicitly acknowledge the model is the center of a range of expected outcomes. The 95% interval indicates the expected outcome from the prediction model will fall within that range 95% of the time. What do we learn from our model and data?</p>
+<p>The top server has a strong seasonality (the noticeable downward trend, with a sharp drop before jumping back up), but the volatility is too great to have a useful estimation of the expected load. All we know is this server is overloaded, and has regular changes to its very high utilization over the course of the week. Even a great model doesn't help all the time.</p>
+<p>For the second and third servers, we see a striking difference in the confidence levels despite similar slowly increasing utilization. The second server (EVM-V5C) has a higher intra-period volatility and is more likely to dramatically increase or decrease. If you are looking to consolidate workloads, the second is a better bet with its more predictable CPU utilization.</p>
+<p>For our bottom server, we see some interesting results. Despite the low utilization, and low growth rate, there is very high volatility. This high volatility could change this lightly loaded server to full CPU utilization in a short matter of time. Keep your eye on it.</p>
+<p>After breaking down our historical data into three elements: long term trends, repeated seasonality, and intra-season variation (jitter); we looked at each. Long term trends help guide resource planning (when do I have to buy new servers?). Seasonality lets you predictably scale for period fluctuations within the day, week, month, year, etc. Jitter is the hard part.</p>
+<p>Jitter is the unpredictable unaccounted for in our model. But, even though it doesn't fit, we can still use it to prioritize servers for consolidation and which deserve extra attention as they may become a problem in the future.		</p>
+
+
+
+  <small>tags: <em>cloud</em> - <em>measurement</em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-347441-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-347441-5');
+</script>
+
+  </body>
+</html>

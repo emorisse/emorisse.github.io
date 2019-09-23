@@ -1,0 +1,48 @@
+---
+layout: post
+title: MP3 and Entropy
+date: 2015-01-05 22:05:22.000000000 -05:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '2'
+  rcp_user_level: None
+  _publicize_facebook_user: https://www.facebook.com/emorisse
+  _publicize_twitter_user: "@emorisse"
+  _wpas_done_all: '1'
+  _wpas_mess: MP3 and Entropy
+  _wpas_skip_6792009: '1'
+  _wp_rp_related_posts_query_result_cache_expiration: '1556935344'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:4:"1171";s:5:"score";s:18:"21.202119388249407";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1074";s:5:"score";s:18:"21.202119388249407";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1337";s:5:"score";s:18:"19.863258080364147";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:3:"857";s:5:"score";s:18:"15.285474548581666";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:4:"1161";s:5:"score";s:18:"13.685541576839242";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:4:"1052";s:5:"score";s:18:"13.685541576839242";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:4:"1144";s:5:"score";s:17:"13.27158434813651";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"13.27158434813651";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:4:"1032";s:5:"score";s:17:"13.27158434813651";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:3:"289";s:5:"score";s:18:"12.877528939915196";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:3:"545";s:5:"score";s:17:"8.985708641658583";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:3:"580";s:5:"score";s:17:"7.642737274290833";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554521121;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:1006;}i:1;a:1:{s:2:"id";i:1032;}i:2;a:1:{s:2:"id";i:64;}}}}
+  _wp_rp_image: '1512'
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/mp3-and-entropy/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				If you’re like me, with a wife nursing in the other room and an infant distracted by any noise or movement, then your mind naturally drifts to the topic of entropy<a class="footnote" title="see footnote" href="#fn-1">[1]</a>. I saw something on “TV”<a id="fnref-2" class="footnote" title="see footnote" href="#fn-2">[2]</a> about music, and began wondering about whether different musical styles had different entropy.</p>
+<p>Slashing around with a little Perl code, I hoped to look across my music collection and see what there was to see. Sadly, I don’t have the decoding libraries necessary<a id="fnref-3" class="footnote" title="see footnote" href="#fn-3">[3]</a>, so instead I just looked at the mp3’s themselves. While most genres did show a good range, they are also relatively distinct, and definitely distinct at the extremes.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2015/01/mp3entropy.png"><img class="aligncenter size-medium wp-image-1509" src="{{ site.baseurl }}/assets/mp3entropy-300x225.png" alt="mp3entropy" width="300" height="225" /></a></p>
+<p>While I can't make any conclusions about how efficient mp3 compression is by genre, we can safely say that the further compressibility of the mp3 file is affected by the genre. I.e., there is room for genre specific compression algorithms. Which only makes sense, right? If you know more about the structure, you should be able to make better choices.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li>Entropy is the measure of disorder in a closed system, with the scale ranging from completely random to completely static. It is used as a model in information science for a number of things, including compression: entropy can be used as a measure of how much information is provided by the message, rather than the structure of the message.For example, the patterns of letters in words in the English language follow rules. U follows q, i before e..., etc. The structure defined by these imprecise rules, in English, dictates about half of the letters in any given word. <em>Ths s wh y cn rd wrds wth mssng vwls</em>.The thinking is, should you agree to what the rules are, you can communicate with just the symbols that convey additional meaning. Compression looks to take advantage of this by eliminating as much of the structure as possible, and keeping just the additional information provided.
+<p>Mathematically, the entropy is often referred to by the amount of information per symbol averaged across structural and informational symbols. English has an entropy around 0.5, so each letter conveys 1/2 a letter of information, the other 1/2 is structure<a class="footnote" title="see footnote" href="#fn-4">[4].</a><a class="reversefootnote" title="return to article" href="#fnref-0"> ↩</a></li>
+<li id="fn-2">Probably Hulu? <a class="reversefootnote" title="return to article" href="#fnref-2"> ↩</a></li>
+<li id="fn-3">Darn you, Apple. <a class="reversefootnote" title="return to article" href="#fnref-3"> ↩</a></li>
+<li id="fn-4">Apparently, this makes English great for crossword puzzles.<a class="reversefootnote" title="return to article" href="#fnref-4"> ↩</a></li>
+</ol>
+</div>

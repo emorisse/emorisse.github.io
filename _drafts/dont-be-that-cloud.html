@@ -1,0 +1,36 @@
+---
+layout: post
+title: Don't Be That Cloud
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories:
+- Commentary
+tags: []
+meta:
+  _edit_last: '2'
+  rcp_user_level: None
+  thesis_thumb_width: '66'
+  thesis_thumb_height: '66'
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				Way back when, <a href="http://hbswk.hbs.edu/item/5894.html">researchers found development models can have a huge impact on products</a>. Specifically, they found the effort, and thus cost, to modify code significantly lower in open source than proprietary code of similar functionality due to more loose coupling (fewer interdependencies) between source files. More recently, we have an <a href="https://twitter.com/emorisse/status/353542865852436480">updated example of the rapid innovation in distributed development.</a> This suggests if you want to easily evolve your company's cloud to add feature, functionality, or even add in completely new technology, this is can be a successful model to pattern your cloud after. Let's look at that more closely, and examine implications for cloud management teams.</p>
+<blockquote><p>[O]rganizations which design systems ... are constrained to produce designs which are copies of the communication structures of these organizations - <a href="http://en.wikipedia.org/wiki/Conway's_law">Conway's Law</a></p></blockquote>
+<p>Valdis Kreb recently put out <a href="http://t.co/pQpXMc7DUN">another look at organization structure mirroring product architecture</a>. His point: our reporting hierarchy has little to do with the people we in IT need to work with to get shit done.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/07/wpid-IMG_20130718_131007.jpg"><img class="alignnone size-full" title="IMG_20130718_131007.JPG" alt="image" src="{{ site.baseurl }}/assets/wpid-IMG_20130718_131007.jpg" /></a></p>
+<p>Would you look at that mess!? It's no wonder DevOps has taken off. The mess says two things to me: there should be no surprise we create complex internal products and services, and that they just ain't gonna scale to build and run a cloud. No wonder Forrester has been telling us for years <a href="http://www.networkworld.com/news/2011/021511-internal-clouds.html">most first-time cloud implementations fail</a>. Is there an alternative?</p>
+<p>The alternative is something we at Red Hat are pushing hard on behalf of our clients: well defined interfaces to a myriad of technologies coordinated through adaptive easily modified infrastructure. We call the architecture <a href="http://www.redhat.com/open-hybrid-cloud/reasons-why/">Open Hybrid Cloud</a>.</p>
+<p>Open Hybrid Cloud increases your responsiveness through orchestrating modular technology. Your network team focuses on networking, your storage team on storage. The linkages are well defined, the policies are well defined, and all remain consistent across multiple technologies. When you switch from VMware to OpenStack, you don't want to be forced into recreating storage, network, and compute policies from scratch. Just because you are offering new public cloud resources to your developers doesn't mean you no longer want to enforce your security policy.</p>
+<p>As revolutionary a step as any of these technologies are for our operations, policies only change a little. You still need access control, billing, patching controls, and the million other things required for the care and feeding of our data centers. With the Open Hybrid Cloud model, you choose the combination of vendors and technologies that serves your needs best, while still supporting change wherever and whenever needed.</p>
+<p>That organizational mess above? That's what complexity looks like. That's what slows us down. Don't be that cloud.		</p>

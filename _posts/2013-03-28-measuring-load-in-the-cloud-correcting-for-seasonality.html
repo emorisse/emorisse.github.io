@@ -1,0 +1,62 @@
+---
+layout: post
+title: 'Measuring Load in the Cloud: Correcting for Seasonality'
+date: 2013-03-28 12:04:18.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Requests
+- Research
+tags:
+- cloud
+- measurement
+meta:
+  _edit_last: '2'
+  rcp_user_level: None
+  _wpas_done_all: '1'
+  _wp_rp_image: '1200'
+  ep_post_group_id: g.1TAtRSTtwIuMXTWC
+  ep_post_id: 48364913017d8bd023197bb9852b8161
+  _wp_rp_related_posts_query_result_cache_expiration: '1555091722'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:4:"1052";s:5:"score";s:18:"207.14864718674883";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1139";s:5:"score";s:18:"117.66015079195728";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1144";s:5:"score";s:17:"95.92901159330016";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"93.53058349702307";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:4:"1128";s:5:"score";s:16:"80.3029553896612";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:16:"80.3029553896612";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:4:"1159";s:5:"score";s:17:"70.76312389592006";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:3:"985";s:5:"score";s:17:"26.65741004644177";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:3:"983";s:5:"score";s:17:"18.72537249887151";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:4:"1412";s:5:"score";s:18:"18.419815784839823";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:4:"1479";s:5:"score";s:16:"16.9447837892585";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:4:"1074";s:5:"score";s:18:"16.448560112716653";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554230535;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:1052;}i:1;a:1:{s:2:"id";i:1100;}i:2;a:1:{s:2:"id";i:1095;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/measuring-load-in-the-cloud-correcting-for-seasonality/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				<em> <a href="http://barak--144.wix.com/portfolio#!protfolio2/vstc3=gallery02/albumphotos7=34"><img class="wp-image-1034 alignleft" alt="youngkra2" src="{{ site.baseurl }}/assets/youngkra2-211x300.jpg" width="127" height="180" /></a>Usage is over threshold, unleash the kraken! </em></p>
+<p>Short run peaks are perfect for automated elasticity: the unpredictable consumption that we stay up late worrying about fulfilling.  But, short run peaks can be difficult to tease out from expected variation within the period: seasonality.  Using the open source statistical package <a href="http://www.r-project.org/">R</a>, we can separate and look at both.</p>
+<p><!--more--></p>
+<p>Our example will be watching the <a href="http://www.howweknowus.com/wp-content/uploads/2013/03/laptopload.csv">one, five, and fifteen minute load averages</a> from my laptop over the past few work days, measured at 10 second intervals.  (Also in the file is the CPU temp).  Taking the test across the one minute load averages from the data, here's what we'd like to see:</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/seasonality12.png"><img class="alignright size-full wp-image-1042" alt="seasonality12" src="{{ site.baseurl }}/assets/seasonality12.png" width="480" height="480" /></a>The four graphs indicate the raw data, seasonal adjustments, trend adjusted for seasonality, and the remainder (data - seasonality). The time scale is in units of 12 hours, as suggested by the title of the graph.</p>
+<p>Determining the right length of period to measure is a combination of method and reason. I tested all period lengths from 1 to 24 hours, using the code below.  The optimal period suggested by the code was 13 hours.  As 12 hours makes more sense in terms of work hours, and <a title="13 Hour Period Graphs" href="http://www.howweknowus.com/wp-content/uploads/2013/03/seasonality13.png" target="_blank">the difference was minimal</a>, I have elected to use 12 hours.  Running the same across five and fifteen minute load averages, as well as temperature  we see suggested period of 15, 11, and 1 hours respectively.</p>
+<p>From the trend chart, we see a distinct and pronounced upward trend in the one minute load average. <strong><em>This is what you take long-term action on</em></strong>.</p>
+<p>Graph comment: To the very right side of that graph is a grey rectangle. It's a visual clue to the scale of the curve relative to the others in the collection.</p>
+<p><!--more--></p>
+<h3>R Code</h3>
+<p><code>w &lt;- data.frame(0,0,0)<br />
+names(w) &lt;- c("period", "mean", "stdev")<br />
+# 360 = 1 hour of 10 second intervals<br />
+# if you want to look for longer periods (days, weeks, months, etc.),<br />
+# change the second field in the seq function<br />
+for ( win in seq(360,360*24,360) ) {<br />
+myts &lt;- ts(csv$fifteen, names=csv$date, frequency=win)<br />
+fitR &lt;- stl(myts, s.window="period",robust=T)<br />
+w &lt;- rbind(w, c(win, mean(fitR$weights), sd(fitR$weights)))<br />
+}<br />
+w[1,] &lt;- NA<br />
+w &lt;- w[!is.na(w$period),]<br />
+period &lt;- w[w$mean == min(w$mean),]$period<br />
+myts &lt;- ts(csv$fifteen, names=csv$date, frequency=period)<br />
+fitR &lt;- stl(myts, s.window="period",robust=T)<br />
+print(paste("Optimal value of", period/360, "hours"))<br />
+plot(fitR, main=paste("Seasonality with Period:", period/360, "hours"))</code>		</p>

@@ -1,0 +1,48 @@
+---
+layout: post
+title: Network Analysis Application to Game Theory (with Software)
+date: 2009-04-04 09:00:37.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Research
+tags:
+- analysis
+- application
+- constraint
+- dynamics
+- game theory
+- metrics
+- software
+meta:
+  _edit_last: '2'
+  _wp_rp_image: empty
+  _wp_rp_related_posts_query_result_cache_expiration: '1554806047'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:3:"978";s:5:"score";s:17:"84.99640032168648";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:3:"294";s:5:"score";s:17:"82.54737543475423";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:17:"74.99564299901525";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1128";s:5:"score";s:16:"64.1561956697302";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:2:"77";s:5:"score";s:17:"63.69589958150642";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:2:"64";s:5:"score";s:17:"57.72590321019504";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:2:"53";s:5:"score";s:15:"54.545959378948";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1139";s:5:"score";s:17:"52.94740098183089";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"52.94740098183089";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:3:"174";s:5:"score";s:17:"50.50657137154646";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:3:"339";s:5:"score";s:17:"49.94732908538196";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:3:"444";s:5:"score";s:17:"48.25955703119753";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554506665;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:53;}i:1;a:1:{s:2:"id";i:1006;}i:2;a:1:{s:2:"id";i:174;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/network-analysis-application-to-game-theory-with-software/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				When will network analysis provide additional insight into game theory? In a word: inequality.</p>
+<p>There must be some form of quantifiable inequality in the game: access, strength of relationships, goals, etc.  This difference creates opportunities for the individual players to use information (or resource) asymmetries and broker to their benefit.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2009/04/unequalrelationships1.png"><img class="aligncenter size-medium wp-image-517" title="unequalrelationships1" src="{{ site.baseurl }}/assets/unequalrelationships1-300x86.png" alt="unequalrelationships1" width="300" height="86" /></a></p>
+<p>On the left all of the arrows representing the relationships have the same weight, representing the same value, in both directions and between all nodes.  On the right, the arrows have different weights between nodes. The greater the inequality, the more effective the application of network analysis.</p>
+<p>The relationships depicted could be import/export pairs ($ or volume), contract frequency, or even strength of social relationships. Do not underestimate the potential utility in measuring based on qualitative values, such as strength of relationships. Using them can not only be quite effective, but they can often be much easier to calculate than one might suspect at the onset.  Here's why.</p>
+<p>The analysis method I suggest looks at all of the weights relative to the originating node.  It does not matter whether you can accurately value A's relationship to B versus B's relationship to A, as long as you can compare A's relationship to B versus A's relationship to C.  From the point of data collection, even an intuitive estimation these comparative values will provide insight. Thus knowing A wants something from B more than A wants the alternative from C, is often sufficient.</p>
+<p>Looking at the perspective of access, this is represented in the shape of the network as "holes" or gaps.  There are technical definitions, but it's usually quicker to understand through an image. Compare:</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2008/10/locationlocationlocation.png"><img class="aligncenter size-medium wp-image-269" title="locationlocationlocation" src="{{ site.baseurl }}/assets/locationlocationlocation-300x118.png" alt="locationlocationlocation" width="300" height="118" /></a>From the perspective of the two darker nodes A and B, they clearly have different opportunities to act as brokers based on the holes (or lack thereof) in the network.</p>
+<p>Using the two of these together has <a href="http://www.howweknowus.com/game-theory-network-analysis-an-example/">shown some promising results</a>.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2009/04/nagametheory1.tgz">Here</a> is a simplified version of one of the tools I wrote to calculate the opportunity to act as broker based on the value of relationships and the network.  The TAR file contains the simplified program written in Perl, and two sample CSV network files: one similar to each network in the second image. The program relies on a module not yet indexed by CPAN, but is available <a href="http://search.cpan.org/CPAN/authors/id/E/EM/EMORISSE/Graph-Statistics-0.02.tar.gz">there</a>.</p>
+<p>The calculation is called the network constraint, after Ronald Burt's work.  The lower the constraint, the larger the opportunity to act as a broker, i.e. perform well in the game based on network structure.</p>
+<p>I am in the process of requesting CPAN to host the Perl module, in registered space, so stay tuned.</p>
+<p>[for an older version of the code, with some egregious bugs, but all in one place and no extra downloading, get it <a href="http://www.howweknowus.com/wp-content/uploads/2009/04/nagametheory.tgz">here</a>]		</p>

@@ -1,0 +1,53 @@
+---
+layout: post
+title: Calculating Conditional Entropy in R
+date: 2013-05-01 15:27:20.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Requests
+- Research
+tags:
+- analysis
+- measurement
+meta:
+  _edit_last: '2'
+  rcp_user_level: None
+  _wpas_mess: Calculating Conditional Entropy in R http://wp.me/pifux-in
+  _wpas_done_all: '1'
+  _wplp_post_front: '1'
+  _wplp_post_feed: '1'
+  _wpas_skip_3439491: '1'
+  _wp_rp_image: empty
+  _wp_rp_related_posts_query_result_cache_expiration: '1554850686'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:4:"1052";s:5:"score";s:18:"117.66015079195728";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1032";s:5:"score";s:18:"117.66015079195728";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:17:"66.17502908919276";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1128";s:5:"score";s:17:"52.94740098183089";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"52.94740098183089";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:3:"490";s:5:"score";s:18:"30.944146378544843";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:4:"1074";s:5:"score";s:17:"28.26520399261264";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1144";s:5:"score";s:17:"26.65741004644177";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:3:"985";s:5:"score";s:17:"26.65741004644177";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:3:"629";s:5:"score";s:17:"26.53493700942422";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:3:"580";s:5:"score";s:17:"26.53493700942422";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:3:"553";s:5:"score";s:17:"26.53493700942422";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554763150;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:1095;}i:1;a:1:{s:2:"id";i:1479;}i:2;a:1:{s:2:"id";i:1006;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/calculating-conditional-entropy-in-r/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				&nbsp;</p>
+<pre>conditionalEntropy &lt;- function( graph ) {
+   # graph is a 2 or 3 column dataframe
+   if (ncol(graph) == 2 ) {
+      names(graph) &lt;- c("from","to")
+      graph$weight &lt;- 1
+   } else if (ncol(graph) == 3)
+      names(graph) &lt;- c("from","to","weight")
+   max &lt;- length(rle(paste(graph$from, graph$to))$values)
+   total &lt;- sum(graph$weight)
+   entropy &lt;- data.frame(H = 0, Hmax = 0);
+   entropy$H &lt;- sum(graph$weight/total * log(graph$weight/total) / log(2)) * -1
+   entropy$Hmax &lt;- log(max * (max-1))/log(2)
+   return(entropy)
+}</pre>
+<p>&nbsp;		</p>

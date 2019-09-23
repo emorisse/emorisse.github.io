@@ -1,0 +1,45 @@
+---
+layout: post
+title: 'Lower Limits on Social Network Analysis: Just Ask'
+date: 2008-07-19 10:26:34.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Research
+tags:
+- analysis
+- application
+- distribution
+- house
+- senate
+- socialnetworks
+meta:
+  _edit_last: '2'
+  _wp_rp_image: '1213'
+  _wp_rp_related_posts_query_result_cache_expiration: '1554980937'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:2:"53";s:5:"score";s:17:"99.73910639878622";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1128";s:5:"score";s:17:"94.43331333971719";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:3:"174";s:5:"score";s:16:"79.9098082053337";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:17:"74.99564299901525";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:2:"84";s:5:"score";s:16:"66.0067331646151";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:4:"1074";s:5:"score";s:18:"58.676156206979535";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:3:"514";s:5:"score";s:17:"57.72590321019504";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1139";s:5:"score";s:17:"52.94740098183089";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:17:"52.94740098183089";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:3:"599";s:5:"score";s:17:"52.89727087075453";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:3:"648";s:5:"score";s:17:"49.78901538351073";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:3:"444";s:5:"score";s:17:"48.25955703119753";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1554255867;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:174;}i:1;a:1:{s:2:"id";i:688;}i:2;a:1:{s:2:"id";i:53;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/lower-limits-on-social-network-analysis-just-ask/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				Are there lower limits to the size of Social Networks worth analyzing?  The upper limit seems to be a function of how much time (and compute power) you have, but the lower?</p>
+<p>When we do analyses, these are certain characteristics we look for as verification that our models hold.  A key characteristic is the shape of the distribution of the number of relationships.</p>
+<p>[caption id="attachment_65" align="alignleft" width="100" caption="Expected"]<a href="http://www.kottke.org/03/02/weblogs-and-power-laws"><img class="size-thumbnail wp-image-65" title="Expected" src="{{ site.baseurl }}/assets/technorati_powerlaw-150x150.gif" alt="" width="100" height="75" /></a>[/caption]</p>
+<p>[caption id="attachment_66" align="alignleft" width="100" caption="Senate Observed"]<a href="http://www.howweknowus.com/wp-content/uploads/2008/07/senate.png"><img class="size-thumbnail wp-image-66" title="Senate Observed" src="{{ site.baseurl }}/assets/senate-150x150.png" alt="Observed" width="100" height="75" /></a>[/caption]</p>
+<p>Power-law relationships in social networks are so pervasive, we are surprised when we do not see them.  The co-sponsorship of Senate Resolutions, is one such example where we do not see a power-law distribution.  In the current session, the 110th, the distribution is just about as different as you can get from a power-law: the result is linear (R-sq &gt; 0.97).  My hypothesis is the number of Senators is just too few for the power-law distribution to emerge.</p>
+<p>Since there are some significant constitutional barriers to increasing the number of Senators and taking a new sample, in order to test this hypothesis, I opted for locating a different larger set.  Wanting to find a network with similar culture and behaviors to control where possible for other variables, I analyzed the House Resolutions from the same period.</p>
+<p>[caption id="attachment_67" align="alignright" width="100" caption="House Observed"]<a href="http://www.howweknowus.com/wp-content/uploads/2008/07/house.png"><img class="size-thumbnail wp-image-67" title="House Observed" src="{{ site.baseurl }}/assets/house-150x150.png" alt="House Observed" width="100" height="75" /></a>[/caption]</p>
+<p>Running the same test across the House Resolutions (1,986 resolutions vs 784 in the Senate), the shape was still not best fit to a power-law.  Instead, a logarithmic fit was near perfect (&gt;0.99 R-sq).  So, while his does not prove my hypothesis, the shape of a log fit is similar to, but less dramatic than, power-law. This result certainly suggests further exploration.</p>
+<p>One possible logical conclusion is distribution forms change with scale.  Much of the research on social networks  has been on large scale networks, where the math is at its most difficult.  At this smaller end of spectrum, especially with the Senate, the networks may be small enough that other analyses could be simpler.</p>
+<p>Anthropologist <a href="http://www.liv.ac.uk/evolpsyc/dunbar.html" target="_blank">Robin Dunbar</a>, has done research showing humans can keep the interrelations of about <a href="http://en.wikipedia.org/wiki/Dunbar%27s_number" target="_blank">150</a> people in their heads.  More than that number, and we are out of luck.  With this in mind, it would make sense that relationship/contact distribution would stretch and distort as the number increases in scale.</p>
+<p>So, if you are looking for the key members of a network smaller than "Dunbar's Number," there is an easier way to find out who they are: ask.  If you can get a few people who are already invested in the network to answer you truthfully, they will be able to give you a really good idea who the key people are.		</p>

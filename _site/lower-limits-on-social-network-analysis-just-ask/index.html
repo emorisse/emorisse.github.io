@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Lower Limits on Social Network Analysis: Just Ask</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Lower Limits on Social Network Analysis: Just Ask" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/lower-limits-on-social-network-analysis-just-ask/" />
+<meta property="og:url" content="http://localhost:4000/lower-limits-on-social-network-analysis-just-ask/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-07-19T10:26:34-04:00" />
+<script type="application/ld+json">
+{"dateModified":"2008-07-19T10:26:34-04:00","datePublished":"2008-07-19T10:26:34-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/lower-limits-on-social-network-analysis-just-ask/"},"url":"http://localhost:4000/lower-limits-on-social-network-analysis-just-ask/","@type":"BlogPosting","headline":"Lower Limits on Social Network Analysis: Just Ask","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/"></a></h1>
+        
+        
+
+        <p></p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>19 July 2008</small>
+<h1>Lower Limits on Social Network Analysis: Just Ask</h1>
+
+<p class="view">by erich</p>
+
+<p>
+				Are there lower limits to the size of Social Networks worth analyzing?  The upper limit seems to be a function of how much time (and compute power) you have, but the lower?</p>
+<p>When we do analyses, these are certain characteristics we look for as verification that our models hold.  A key characteristic is the shape of the distribution of the number of relationships.</p>
+<p>[caption id="attachment_65" align="alignleft" width="100" caption="Expected"]<a href="http://www.kottke.org/03/02/weblogs-and-power-laws"><img class="size-thumbnail wp-image-65" title="Expected" src="/assets/technorati_powerlaw-150x150.gif" alt="" width="100" height="75" /></a>[/caption]</p>
+<p>[caption id="attachment_66" align="alignleft" width="100" caption="Senate Observed"]<a href="http://www.howweknowus.com/wp-content/uploads/2008/07/senate.png"><img class="size-thumbnail wp-image-66" title="Senate Observed" src="/assets/senate-150x150.png" alt="Observed" width="100" height="75" /></a>[/caption]</p>
+<p>Power-law relationships in social networks are so pervasive, we are surprised when we do not see them.  The co-sponsorship of Senate Resolutions, is one such example where we do not see a power-law distribution.  In the current session, the 110th, the distribution is just about as different as you can get from a power-law: the result is linear (R-sq &gt; 0.97).  My hypothesis is the number of Senators is just too few for the power-law distribution to emerge.</p>
+<p>Since there are some significant constitutional barriers to increasing the number of Senators and taking a new sample, in order to test this hypothesis, I opted for locating a different larger set.  Wanting to find a network with similar culture and behaviors to control where possible for other variables, I analyzed the House Resolutions from the same period.</p>
+<p>[caption id="attachment_67" align="alignright" width="100" caption="House Observed"]<a href="http://www.howweknowus.com/wp-content/uploads/2008/07/house.png"><img class="size-thumbnail wp-image-67" title="House Observed" src="/assets/house-150x150.png" alt="House Observed" width="100" height="75" /></a>[/caption]</p>
+<p>Running the same test across the House Resolutions (1,986 resolutions vs 784 in the Senate), the shape was still not best fit to a power-law.  Instead, a logarithmic fit was near perfect (&gt;0.99 R-sq).  So, while his does not prove my hypothesis, the shape of a log fit is similar to, but less dramatic than, power-law. This result certainly suggests further exploration.</p>
+<p>One possible logical conclusion is distribution forms change with scale.  Much of the research on social networks  has been on large scale networks, where the math is at its most difficult.  At this smaller end of spectrum, especially with the Senate, the networks may be small enough that other analyses could be simpler.</p>
+<p>Anthropologist <a href="http://www.liv.ac.uk/evolpsyc/dunbar.html" target="_blank">Robin Dunbar</a>, has done research showing humans can keep the interrelations of about <a href="http://en.wikipedia.org/wiki/Dunbar%27s_number" target="_blank">150</a> people in their heads.  More than that number, and we are out of luck.  With this in mind, it would make sense that relationship/contact distribution would stretch and distort as the number increases in scale.</p>
+<p>So, if you are looking for the key members of a network smaller than "Dunbar's Number," there is an easier way to find out who they are: ask.  If you can get a few people who are already invested in the network to answer you truthfully, they will be able to give you a really good idea who the key people are.		</p>
+
+
+
+  <small>tags: <em>analysis</em> - <em>application</em> - <em>distribution</em> - <em>house</em> - <em>senate</em> - <em>socialnetworks</em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-347441-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-347441-5');
+</script>
+
+  </body>
+</html>

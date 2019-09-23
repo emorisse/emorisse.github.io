@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Communication Method, Scale, and Entropy</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Communication Method, Scale, and Entropy" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/communication-method-scale-and-entropy/" />
+<meta property="og:url" content="http://localhost:4000/communication-method-scale-and-entropy/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-03-27T05:20:31-04:00" />
+<script type="application/ld+json">
+{"dateModified":"2013-03-27T05:20:31-04:00","datePublished":"2013-03-27T05:20:31-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/communication-method-scale-and-entropy/"},"url":"http://localhost:4000/communication-method-scale-and-entropy/","@type":"BlogPosting","headline":"Communication Method, Scale, and Entropy","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/"></a></h1>
+        
+        
+
+        <p></p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>27 March 2013</small>
+<h1>Communication Method, Scale, and Entropy</h1>
+
+<p class="view">by erich</p>
+
+<p>
+				In a surprise to Marshall McLuhan, we see <em>ad hoc</em> conversations conducted through different electronic media demonstrating very similar scaling characteristics across number of nodes, number of edges, and number of unique edges.  Looking at email lists, IRC, and long-term twitter searches, we more similarity than difference between the three media.</p>
+<p>However, when look at the observed conditional entropy (below the fold), the differences become clear: communication patterns are very different by media type, even as the networks scale similarly in communicants.  Maybe McLuhan was right.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/conditionalslog.png"><img class=" wp-image-1002   alignleft" alt="nodes vs unique edges" src="/assets/conditionalslog.png" width="173" height="173" /></a></p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/nodesVtotal.png"><img class="wp-image-1001  alignleft" alt="nodes vs total edges" src="/assets/nodesVtotal.png" width="173" height="173" /></a></p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/edgesVtotal.png"><img class="wp-image-1000  alignleft" alt="unique vs total edges" src="/assets/edgesVtotal.png" width="173" height="173" /></a></p>
+<p>&nbsp;</p>
+<p><!--more--></p>
+<p>Wikipedia defines <a href="http://en.wikipedia.org/wiki/Conditional_entropy">conditional entropy</a> as: the amount of information needed to describe the outcome of a random variable <strong>Y</strong> given that the value of another random variable <strong>X</strong> is known. For our networks, <strong>X </strong>is the source node, and <strong>Y</strong> the recipient. We sum these across all source nodes, and we have the conditional entropy on the observed network. This number is strongly affected by "balance" of communication, and reaches is maximum value when all nodes communicate with all other nodes the same amount.</p>
+<p>Comparing the observed conditional entropy with maximum theoretical entropy for the same network, we see the first strong divergence in characteristics. The size of the points in the below graphs (as well as the above) are the ratio of observed to maximum conditional entropy, or relative conditional entropy. The larger the ratio, the greater balance in communication between all participants. Playing loosely with terms, very democratic networks have large ratios, and despotic small.</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/entropy.png"><img class="size-full wp-image-999 alignnone" alt="entropy" src="/assets/entropy.png" width="480" height="480" /></a></p>
+<p>&nbsp;</p>
+<p>Below, we can see the observed conditional entropy for each sample by type. The box indicates the 95% confidence interval for the type in question. We see a strong distinction between IRC and twitter, with email showing much more loose clustering.<br />
+<a href="http://www.howweknowus.com/wp-content/uploads/2013/03/entropyvar.png"><img class="size-full wp-image-1011 alignnone" alt="entropyvar" src="/assets/entropyvar.png" width="480" height="480" /></a> <!--more--></p>
+<h3>Comments on methodology</h3>
+<p><strong>Nodes</strong> are individuals whom have communicated to another node, and/or have been on the receiving end of a communication.  Membership to email lists and attendance in an IRC channel are not included, nor are broadcast messages without individual designated recipients.</p>
+<p>All <strong>edges</strong> are directed for the calculation of observed entropy.</p>
+<p>Both <strong>email</strong> and <strong>IRC</strong> sources are technical in content.  Future study recommends observations across a wide-set of content types.</p>
+<p><strong>Twitter</strong> search topics include a wide range including technical, commercial brand, and political terms.</p>
+<p><!--more--></p>
+<h3>R code to generate the above graphs</h3>
+<p><code> library(ggplot2)<br />
+csv2&lt;-read.csv("conditionalentropies.csv",header=T)<br />
+csv2$edges &lt;- csv$lines # for clarity in graph legends<br />
+attach(csv2)<br />
+png("conditionalslog.png")<br />
+qplot(log(nodes), log(edges), data=csv2,colour=type, cex=ratio) + geom_smooth(method = 'lm', alpha = 0.2) dev.off()<br />
+png("nodesVtotal.png")<br />
+qplot(log(nodes), log(total/2), data=csv2,colour=type, cex=ratio) + geom_smooth(method = 'lm', alpha = 0.2)<br />
+dev.off()<br />
+png("edgesVtotal.png")<br />
+qplot(log(lines), log(total/2), data=csv2,colour=type, cex=ratio) + geom_smooth(method = 'lm', alpha = 0.2)<br />
+dev.off()<br />
+png("entropy.png")<br />
+qplot(max, entropy, data=csv2,colour=type, cex=ratio) + geom_smooth(method = 'lm', alpha = 0.2)<br />
+dev.off()<br />
+library(Hmisc)<br />
+png("entropyvar.png")<br />
+smry &lt;- stat_summary(fun.data="mean_cl_boot", conf.int=0.95, geom="crossbar", width=0.3)<br />
+qplot(type, entropy,col=type) + smry<br />
+dev.off()<br />
+</code></p>
+<h3>Notes on the code</h3>
+<p><strong></strong>"lines" and "edges" are used interchangeably, these are the same value.</p>
+<p>"total/2" is the total number of observed edges, not corrected for uniqueness.  E.g. edges seen in the following pattern: A-B A-B C-D, would have a total/2 of 3. The "/2" is in place to correct an artifact of the way the data was collected.</p>
+<p>Graph formatting ideas from a <a href="http://ggplot2.org/resources/2007-past-present-future.pdf">presentation</a> by <a href="http://had.co.nz/ ">Hadley Wickham</a>.		</p>
+
+
+
+  <small>tags: <em>networks</em> - <em>scale</em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-347441-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-347441-5');
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,36 @@
+---
+layout: post
+title: The Lambert Effect - Subtleties in Cloud Modeling
+date: 2013-04-25 13:12:22.000000000 -04:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Research
+tags:
+- analysis
+- cloud
+meta:
+  _edit_last: '2'
+  rcp_user_level: None
+  _wpas_done_all: '1'
+  _wp_rp_image: '1202'
+  _wp_rp_related_posts_query_result_cache_expiration: '1557200097'
+  _wp_rp_related_posts_query_result_cache_6: a:12:{i:0;O:8:"stdClass":2:{s:7:"post_id";s:4:"1100";s:5:"score";s:18:"154.97047078273565";}i:1;O:8:"stdClass":2:{s:7:"post_id";s:4:"1095";s:5:"score";s:18:"124.34789036390966";}i:2;O:8:"stdClass":2:{s:7:"post_id";s:4:"1052";s:5:"score";s:16:"80.7205396730577";}i:3;O:8:"stdClass":2:{s:7:"post_id";s:4:"1032";s:5:"score";s:16:"80.7205396730577";}i:4;O:8:"stdClass":2:{s:7:"post_id";s:4:"1159";s:5:"score";s:17:"71.07081757700804";}i:5;O:8:"stdClass":2:{s:7:"post_id";s:4:"1074";s:5:"score";s:17:"58.22018803438861";}i:6;O:8:"stdClass":2:{s:7:"post_id";s:4:"1144";s:5:"score";s:17:"56.26375463941842";}i:7;O:8:"stdClass":2:{s:7:"post_id";s:4:"1139";s:5:"score";s:18:"53.277072786901606";}i:8;O:8:"stdClass":2:{s:7:"post_id";s:4:"1164";s:5:"score";s:17:"39.14431230780242";}i:9;O:8:"stdClass":2:{s:7:"post_id";s:2:"64";s:5:"score";s:17:"31.63161795520522";}i:10;O:8:"stdClass":2:{s:7:"post_id";s:3:"988";s:5:"score";s:17:"24.03090668681734";}i:11;O:8:"stdClass":2:{s:7:"post_id";s:2:"90";s:5:"score";s:17:"23.82750285813673";}}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1552534363;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:1052;}i:1;a:1:{s:2:"id";i:1100;}i:2;a:1:{s:2:"id";i:1032;}}}}
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/the-lambert-effect-subtleties-in-cloud-modeling/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+<p>
+				<a href="http://www.howweknowus.com/wp-content/uploads/2013/04/threemodels.png"><img class="alignright size-medium wp-image-1129" alt="threemodels" src="{{ site.baseurl }}/assets/threemodels-300x300.png" width="300" height="300" /></a>After you've done all of the hard work in creating the perfect model that fits your data comes the hard part: does it make sense? Have you overly fitted your data? Are the results confirming or surprising? If surprising, is that because there's a surprise or your model is broken?</p>
+<p>Here's an example: iterating on the same CloudForms data as the past few posts, we have subtle variations on the relationship between CPU and memory usage shown through linear regressions with R. Grey dashed = relationship across all servers/VMs and data points, without any taking into account per server variance; and says generally more CPU usage indicates more memory consumed. Blue dashed = taking into account variance of the intercept but not slope of the variance (using factor() in lm()); and reinforces the CPU/memory relationship, but suggests it's not as strong as the previous model. The black line varies both slope and intercept by server/VM with lmer().</p>
+<p>So what's the best model? Good question, I'm looking for input. I'd like a model that I can generalize to new VMs, which suggests one of the two less fitted models.</p>
+<p>Many thanks to Edwin Lambert who, many years ago, beat into my skull that understanding, not numbers, is the goal.		</p>

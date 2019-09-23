@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Measuring Load in the Cloud: Correcting for Seasonality</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Measuring Load in the Cloud: Correcting for Seasonality" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/measuring-load-in-the-cloud-correcting-for-seasonality/" />
+<meta property="og:url" content="http://localhost:4000/measuring-load-in-the-cloud-correcting-for-seasonality/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-03-28T12:04:18-04:00" />
+<script type="application/ld+json">
+{"dateModified":"2013-03-28T12:04:18-04:00","datePublished":"2013-03-28T12:04:18-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/measuring-load-in-the-cloud-correcting-for-seasonality/"},"url":"http://localhost:4000/measuring-load-in-the-cloud-correcting-for-seasonality/","@type":"BlogPosting","headline":"Measuring Load in the Cloud: Correcting for Seasonality","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/"></a></h1>
+        
+        
+
+        <p></p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>28 March 2013</small>
+<h1>Measuring Load in the Cloud: Correcting for Seasonality</h1>
+
+<p class="view">by erich</p>
+
+<p>
+				<em> <a href="http://barak--144.wix.com/portfolio#!protfolio2/vstc3=gallery02/albumphotos7=34"><img class="wp-image-1034 alignleft" alt="youngkra2" src="/assets/youngkra2-211x300.jpg" width="127" height="180" /></a>Usage is over threshold, unleash the kraken! </em></p>
+<p>Short run peaks are perfect for automated elasticity: the unpredictable consumption that we stay up late worrying about fulfilling.  But, short run peaks can be difficult to tease out from expected variation within the period: seasonality.  Using the open source statistical package <a href="http://www.r-project.org/">R</a>, we can separate and look at both.</p>
+<p><!--more--></p>
+<p>Our example will be watching the <a href="http://www.howweknowus.com/wp-content/uploads/2013/03/laptopload.csv">one, five, and fifteen minute load averages</a> from my laptop over the past few work days, measured at 10 second intervals.  (Also in the file is the CPU temp).  Taking the test across the one minute load averages from the data, here's what we'd like to see:</p>
+<p><a href="http://www.howweknowus.com/wp-content/uploads/2013/03/seasonality12.png"><img class="alignright size-full wp-image-1042" alt="seasonality12" src="/assets/seasonality12.png" width="480" height="480" /></a>The four graphs indicate the raw data, seasonal adjustments, trend adjusted for seasonality, and the remainder (data - seasonality). The time scale is in units of 12 hours, as suggested by the title of the graph.</p>
+<p>Determining the right length of period to measure is a combination of method and reason. I tested all period lengths from 1 to 24 hours, using the code below.  The optimal period suggested by the code was 13 hours.  As 12 hours makes more sense in terms of work hours, and <a title="13 Hour Period Graphs" href="http://www.howweknowus.com/wp-content/uploads/2013/03/seasonality13.png" target="_blank">the difference was minimal</a>, I have elected to use 12 hours.  Running the same across five and fifteen minute load averages, as well as temperature  we see suggested period of 15, 11, and 1 hours respectively.</p>
+<p>From the trend chart, we see a distinct and pronounced upward trend in the one minute load average. <strong><em>This is what you take long-term action on</em></strong>.</p>
+<p>Graph comment: To the very right side of that graph is a grey rectangle. It's a visual clue to the scale of the curve relative to the others in the collection.</p>
+<p><!--more--></p>
+<h3>R Code</h3>
+<p><code>w &lt;- data.frame(0,0,0)<br />
+names(w) &lt;- c("period", "mean", "stdev")<br />
+# 360 = 1 hour of 10 second intervals<br />
+# if you want to look for longer periods (days, weeks, months, etc.),<br />
+# change the second field in the seq function<br />
+for ( win in seq(360,360*24,360) ) {<br />
+myts &lt;- ts(csv$fifteen, names=csv$date, frequency=win)<br />
+fitR &lt;- stl(myts, s.window="period",robust=T)<br />
+w &lt;- rbind(w, c(win, mean(fitR$weights), sd(fitR$weights)))<br />
+}<br />
+w[1,] &lt;- NA<br />
+w &lt;- w[!is.na(w$period),]<br />
+period &lt;- w[w$mean == min(w$mean),]$period<br />
+myts &lt;- ts(csv$fifteen, names=csv$date, frequency=period)<br />
+fitR &lt;- stl(myts, s.window="period",robust=T)<br />
+print(paste("Optimal value of", period/360, "hours"))<br />
+plot(fitR, main=paste("Seasonality with Period:", period/360, "hours"))</code>		</p>
+
+
+
+  <small>tags: <em>cloud</em> - <em>measurement</em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-347441-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-347441-5');
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>Ansible, Simple, and Anti-Fragility</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Ansible, Simple, and Anti-Fragility" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/ansible-simple-and-anti-fragility/" />
+<meta property="og:url" content="http://localhost:4000/ansible-simple-and-anti-fragility/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-02T13:39:14-05:00" />
+<script type="application/ld+json">
+{"dateModified":"2019-01-02T13:39:14-05:00","datePublished":"2019-01-02T13:39:14-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ansible-simple-and-anti-fragility/"},"url":"http://localhost:4000/ansible-simple-and-anti-fragility/","@type":"BlogPosting","headline":"Ansible, Simple, and Anti-Fragility","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/"></a></h1>
+        
+        
+
+        <p></p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>2 January 2019</small>
+<h1>Ansible, Simple, and Anti-Fragility</h1>
+
+<p class="view">by erich</p>
+
+<p>
+				<a href="https://www.redhat.com/en/blog/why-red-hat-acquired-ansible" target="_blank" rel="noopener">Once upon a time, Red Hat acquired a company</a> called <a href="http://ansible.com" target="_blank" rel="noopener">Ansible</a>. Right before the transaction closed, The Boss called and said, "Erich, I want you to make Ansible part of Red Hat. Don’t @#$% it up." That's when my real adventure with automation began.</p>
+<p>Ok, the tech is nearly as amazing as the people, but how did it fit into our business? To really get this right, I spent a lot of time learning about the why's of automation - what's is really good for, and how it changes work.</p>
+<h2>Four goals of automation</h2>
+<ul>
+<li>Do more of the things</li>
+<li>Do the things with greater consistency</li>
+<li>Do the things cheaper</li>
+<li>Less training to do the things</li>
+</ul>
+<p>I suspect there might not be a lot of surprise in that list. Once it's written down or said aloud, it seems pretty intuitive. What I've found interesting about, and unique to Ansible, is how much our design principle of "simple" makes all four better. Simple lets you get started faster on new things (less training), and takes less time and lets you do more things. Simple means fewer mistakes (consistency), and all of these together lead to less expensive operations.</p>
+<p>But, what about how automation changes work? At the first pass, those four goals are big changes to work in of themselves. But, the biggest impact comes when things change.</p>
+<p>[caption id="attachment_1569" align="alignnone" width="850"]<a href="https://www.researchgate.net/publication/319094467_Automatic_Clustering_Constraints_Derivation_from_Object-Oriented_Software_Using_Weighted_Complex_Network_with_Graph_Theory_Analysis?_sg=U_l_yqDxh5EU-FTZfpKkjcthMTcODsvYU87xhblF5x8LHLbycL6fKEZQ8oe3ymRzkmxoq5QBWg" target="_blank" rel="noopener"><img class="alignnone size-full wp-image-1569" src="/assets/Snippet-of-Apache-Gora-project-represented-in-weighted-complex-network-using-our-approach.png" alt="Snippet-of-Apache-Gora-project-represented-in-weighted-complex-network-using-our-approach" width="850" height="574" /></a> <strong>Systems are Complex</strong>. Snippet of Apache Gora project represented by Chong and Lee (2015a) [/caption]</p>
+<p>Here's an unpopular truth, if you work with systems of any size, you don't know <em>exactly</em> how they work. If you're diligent, you may have a great idea how they work. If you've worked with them long enough, you have a great intuition of how they work. You might know how to look up how a particular subsystem works, or who to call when another isn't performing as desired. But you don't, with precision, know.</p>
+<p>That matters because it also means you don't know all of the assumptions that lead your processes to work. Automation can break in at least three cases:</p>
+<ul>
+<li>Inputs change</li>
+<li>Conditions change</li>
+<li>Things break</li>
+</ul>
+<p>Consumption and use of a robust automation system, one which holds up in light of these expected changes, requires both the users and the technology to absorb these changes.</p>
+<ul>
+<li>We can still do more things, but the volume of things can overwhelm when something breaks. Operator workload can become lumpy and unevenly distributed, especially at peak times, we introduce cognitive overload with new metrics, and other changes to the work itself.</li>
+<li>The things we automate become more precise, but we see new types of errors emerge: system errors, unmet requirements/edge cases, more complex behaviors to manage.</li>
+<li>Things are less expensive at the unit cost, pure replacement with automation is doesn't happen, and is referred to as the “substitution myth.” Automation changes work.</li>
+<li>Things are easier to do, and require less training. But, there's an increased need for ongoing training, need to know the system as well as the components, with more emphasis on the system.</li>
+</ul>
+<p>There are two approaches for creating more robust systems: handle as many edge cases as possible, which introduces more complexity to the system and makes it harder to fix the edge cases you missed; and simplicity. We chose simplicity.</p>
+<p>We chose simple to help the teams understand the systems they're using. When something breaks, they know where to look, and have a shared language to work with others impacted by the systems.</p>
+<p>We chose simple to lower the expertise and effort to get started, creating more opportunity to automate little things in a learning, incremental approach to building hyper-scale automation systems.</p>
+<p>We chose simple, because it's more robust.</p>
+<p>We chose simple, because it's better.</p>
+<p><a href="https://github.com/emorisse/AutomationReading" target="_blank" rel="noopener">Additional Reading on Automation and Resiliency</a>		</p>
+
+
+
+  <small>tags: <em></em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-347441-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-347441-5');
+</script>
+
+  </body>
+</html>
