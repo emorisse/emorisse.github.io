@@ -1,2 +1,2 @@
 # emorisse.github.io
-permalink: _posts/
+articles: [articles](/_posts)
