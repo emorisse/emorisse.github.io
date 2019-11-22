@@ -1,3 +1,24 @@
+---
+layout: post
+title: GTD - Ticker List
+date: 2019-11-22
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+author:
+  login: erich
+  email: erich@howweknowus.com
+  display_name: erich
+  first_name: Erich
+  last_name: Morisse
+permalink: "/GTDtickler/"
+excerpt: "\n\t\t\t\t\t\t"
+---
+
 # Professional
 * Projects started, not completed
 * Projects that need to be started
