@@ -1,3 +1,3 @@
 ---
-layout: home
+<a href="assets/patent.png">
 --- 
