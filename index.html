@@ -1,3 +1,49 @@
-<div style="text-align: center;">
-<img src="patent.png" width="auto" height="100%">
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Display</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body bgcolor="white">
+    <img id="randomImage" alt="Random Image">
+
+    <script>
+        // List of image file names
+        const images = [
+		'033-black.png',
+		'CloudTCOSearchARIMA.png',
+		'anomolies.png',
+		'freqVimpact.png',
+		'investments.png',
+		'monthly.png',
+		'patent.png'
+        ];
+
+        // Function to select and display a random image
+        function displayRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const imagePath = 'images/' + images[randomIndex];
+            document.getElementById('randomImage').src = imagePath;
+        }
+
+        // Call the function when the page loads
+        window.onload = displayRandomImage;
+    </script>
+</body>
+</html>
