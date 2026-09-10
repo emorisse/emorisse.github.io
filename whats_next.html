@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive workshop for selecting and testing AI projects through business outcomes, whole-workflow effort, and explicit operating limits.">
+<title>AI Project Lab</title>
+<style>
+:root {color-scheme:light dark;background:light-dark(#eef3f3,#10191d);}
+body {margin:0;padding:24px 16px;}
+#ai-project-lab {max-width:1120px;margin:0 auto;}
+#ai-project-lab .lab-stat-value {overflow-wrap:anywhere;}
+@media(max-width:600px) {body {padding:0;} #ai-project-lab {border-radius:0;}}
+</style>
+</head>
+<body>
+<noscript><p>This workshop requires JavaScript. Enable it in your browser to use the project challenge and assessment.</p></noscript>
+<div id="ai-project-lab" aria-label="AI Project Lab">
+  <style>
+    #ai-project-lab {
+      --lab-bg: light-dark(#f8faf9, #141d21);
+      --lab-surface: light-dark(#ffffff, #1c292f);
+      --lab-ink: light-dark(#18343e, #e4eff0);
+      --lab-muted: light-dark(#526972, #adc0c6);
+      --lab-line: light-dark(#d5e1e3, #38515b);
+      --lab-accent: light-dark(#006b62, #7cddd0);
+      --lab-tint: light-dark(#e3f4ef, #173e3c);
+      --lab-on: light-dark(#ffffff, #123532);
+      --lab-warn: light-dark(#894310, #ffc38d);
+      --lab-warn-bg: light-dark(#fff2e4, #3d2e20);
+      --lab-bad: light-dark(#a52d36, #ffacb3);
+      --lab-bad-bg: light-dark(#ffedf0, #402a32);
+      --lab-neutral: light-dark(#d9e6ea, #38515a);
+      color: var(--lab-ink); background: var(--lab-bg); font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px; line-height: 1.5; border-radius: 16px; overflow: clip;
+      text-align: left; color-scheme: light dark;
+    }
+    #ai-project-lab * {box-sizing: border-box;}
+    #ai-project-lab [hidden] {display: none !important;}
+    #ai-project-lab h1, #ai-project-lab h2, #ai-project-lab h3, #ai-project-lab p {margin: 0;}
+    #ai-project-lab h1 {font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -.6px;}
+    #ai-project-lab h2 {font-size: 21px; font-weight: 500; line-height: 1.3;}
+    #ai-project-lab h3 {font-size: 16px; font-weight: 500;}
+    #ai-project-lab strong {font-weight: 500;}
+    #ai-project-lab button, #ai-project-lab input, #ai-project-lab select, #ai-project-lab textarea {font: inherit; color: inherit;}
+    #ai-project-lab button {cursor: pointer;}
+    #ai-project-lab input, #ai-project-lab select, #ai-project-lab textarea {
+      background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 8px;
+      padding: 10px 11px; min-height: 44px; width: 100%; min-width: 0; font-size: 16px;
+    }
+    #ai-project-lab textarea {resize: vertical;}
+    #ai-project-lab input[type="range"] {padding: 0; accent-color: var(--lab-accent); background: transparent; border: 0;}
+    #ai-project-lab input[type="checkbox"] {width: 18px; height: 18px; min-height: 18px; accent-color: var(--lab-accent); flex-shrink: 0;}
+    #ai-project-lab label {display: block; color: var(--lab-muted);}
+    #ai-project-lab label > input, #ai-project-lab label > select, #ai-project-lab label > textarea {margin-top: 6px; color: var(--lab-ink);}
+    #ai-project-lab a {color: var(--lab-accent); text-underline-offset: 3px;}
+    #ai-project-lab .lab-top {display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 18px 26px; border-bottom: 1px solid var(--lab-line); background: var(--lab-surface);}
+    #ai-project-lab .lab-brand {font-weight: 500; display: flex; gap: 10px; align-items: center;}
+    #ai-project-lab .lab-brand i {color: var(--lab-accent);}
+    #ai-project-lab .lab-tabs {display: flex; gap: 4px; flex-wrap: wrap;}
+    #ai-project-lab .lab-tabs button {border: 0; background: transparent; padding: 9px 13px; border-radius: 7px; min-height: 44px;}
+    #ai-project-lab .lab-tabs button[aria-selected="true"] {background: var(--lab-tint); color: var(--lab-accent);}
+    #ai-project-lab .lab-main {padding: 26px;}
+    #ai-project-lab .lab-intro {display: flex; gap: 20px; justify-content: space-between; align-items: flex-start; margin-bottom: 22px;}
+    #ai-project-lab .lab-intro p {margin-top: 9px; max-width: 670px; color: var(--lab-muted);}
+    #ai-project-lab .lab-eyebrow {font-size: 12px; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 8px; color: var(--lab-accent);}
+    #ai-project-lab .lab-small {font-size: 12px; color: var(--lab-muted);}
+    #ai-project-lab .lab-number {font-variant-numeric: tabular-nums;}
+    #ai-project-lab .lab-choices {display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px;}
+    #ai-project-lab .lab-choice {display: block; padding: 18px; background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 12px; text-align: left; min-width: 0; position: relative;}
+    #ai-project-lab .lab-choice[aria-pressed="true"] {border-color: var(--lab-accent); background: var(--lab-tint); box-shadow: inset 0 0 0 1px var(--lab-accent);}
+    #ai-project-lab .lab-choice .lab-letter {display: block; color: var(--lab-muted); font-size: 12px; margin-bottom: 12px;}
+    #ai-project-lab .lab-choice .lab-name {display: block; font-size: 17px; font-weight: 500; margin-bottom: 6px;}
+    #ai-project-lab .lab-choice .lab-pitch {display: block; color: var(--lab-muted); min-height: 43px;}
+    #ai-project-lab .lab-choice .lab-time {display: block; font-size: 23px; margin: 16px 0 2px; font-variant-numeric: tabular-nums;}
+    #ai-project-lab .lab-choice .lab-time small {font-size: 12px; color: var(--lab-muted);}
+    #ai-project-lab .lab-actions {display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px;}
+    #ai-project-lab .lab-button {border: 1px solid var(--lab-line); background: var(--lab-surface); color: var(--lab-ink); border-radius: 8px; min-height: 44px; padding: 10px 15px;}
+    #ai-project-lab .lab-button.lab-primary {border-color: transparent; background: var(--lab-accent); color: var(--lab-on);}
+    #ai-project-lab .lab-button:disabled {opacity: .5; cursor: default;}
+    #ai-project-lab .lab-section {margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--lab-line);}
+    #ai-project-lab .lab-section-head {display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;}
+    #ai-project-lab .lab-flow {display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; padding: 20px 0 14px;}
+    #ai-project-lab .lab-stage {min-width: 0; position: relative;}
+    #ai-project-lab .lab-stage + .lab-stage:before {content: "→"; position: absolute; left: -13px; top: 32px; color: var(--lab-muted);}
+    #ai-project-lab .lab-stage-head {display: flex; align-items: baseline; justify-content: space-between; gap: 4px; flex-wrap: wrap; margin-bottom: 10px;}
+    #ai-project-lab .lab-stage strong {font-size: 15px;}
+    #ai-project-lab .lab-track {height: 14px; background: var(--lab-neutral); overflow: hidden; border-radius: 3px; margin: 9px 0;}
+    #ai-project-lab .lab-fill {height: 100%; width: 0; background: var(--lab-accent); transition: width .3s ease;}
+    #ai-project-lab .lab-stage[data-limited="true"] .lab-fill {background: var(--lab-warn);}
+    #ai-project-lab .lab-limiter {color: var(--lab-warn); min-height: 19px; font-size: 12px;}
+    #ai-project-lab .lab-results {display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; padding: 18px 0; border-top: 1px solid var(--lab-line); border-bottom: 1px solid var(--lab-line);}
+    #ai-project-lab .lab-stat-label {font-size: 12px; color: var(--lab-muted);}
+    #ai-project-lab .lab-stat-value {font-size: 29px; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -.5px; margin: 4px 0;}
+    #ai-project-lab .lab-stat-note {font-size: 12px; color: var(--lab-muted);}
+    #ai-project-lab .lab-feedback {margin-top: 16px; padding: 14px 16px; background: var(--lab-tint); border-radius: 8px; color: var(--lab-accent);}
+    #ai-project-lab .lab-feedback[data-tone="warn"] {background: var(--lab-warn-bg); color: var(--lab-warn);}
+    #ai-project-lab .lab-feedback[data-tone="bad"] {background: var(--lab-bad-bg); color: var(--lab-bad);}
+    #ai-project-lab .lab-feedback p {margin-top: 5px;}
+    #ai-project-lab .lab-control-grid {display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px;}
+    #ai-project-lab .lab-toggle {display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 0; color: var(--lab-ink);}
+    #ai-project-lab .lab-toggle input {margin: 0;}
+    #ai-project-lab .lab-switches {display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px;}
+    #ai-project-lab .lab-range-head {display: flex; justify-content: space-between; gap: 10px;}
+    #ai-project-lab .lab-scenario-buttons {display: flex; gap: 8px; flex-wrap: wrap;}
+    #ai-project-lab .lab-scenario-buttons button[aria-pressed="true"] {background: var(--lab-tint); border-color: var(--lab-accent); color: var(--lab-accent);}
+    #ai-project-lab .lab-risk-strip {display: flex; gap: 24px; flex-wrap: wrap; padding: 14px 0;}
+    #ai-project-lab .lab-risk-strip > div {flex: 1 1 150px;}
+    #ai-project-lab .lab-risk-value {font-size: 22px; font-variant-numeric: tabular-nums;}
+    #ai-project-lab .lab-risk-value[data-breach="true"] {color: var(--lab-bad);}
+    #ai-project-lab details {border-top: 1px solid var(--lab-line); padding-top: 12px; margin-top: 16px;}
+    #ai-project-lab summary {cursor: pointer; min-height: 36px; color: var(--lab-muted);}
+    #ai-project-lab .lab-table-wrap {overflow-x: auto;}
+    #ai-project-lab table {border-collapse: collapse; width: 100%; font-size: 13px;}
+    #ai-project-lab th, #ai-project-lab td {padding: 10px 8px; border-bottom: 1px solid var(--lab-line); text-align: left; vertical-align: top;}
+    #ai-project-lab th {font-weight: 500; color: var(--lab-muted);}
+    #ai-project-lab td {font-variant-numeric: tabular-nums;}
+    #ai-project-lab td button {border: 0; background: transparent; padding: 0; color: var(--lab-accent); text-decoration: underline; min-height: 32px;}
+    #ai-project-lab .lab-sources {display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; margin-top: 12px;}
+    #ai-project-lab .lab-steps {display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;}
+    #ai-project-lab .lab-step {border: 0; border-bottom: 2px solid var(--lab-line); background: transparent; padding: 8px 14px; min-height: 44px; color: var(--lab-muted);}
+    #ai-project-lab .lab-step[aria-current="step"] {border-color: var(--lab-accent); color: var(--lab-accent);}
+    #ai-project-lab .lab-fields {display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px;}
+    #ai-project-lab .lab-fields .lab-full {grid-column: 1 / -1;}
+    #ai-project-lab .lab-own-stage {background: var(--lab-surface); padding: 20px; border: 1px solid var(--lab-line); border-radius: 12px;}
+    #ai-project-lab .lab-own-stage h2 {margin-bottom: 18px;}
+    #ai-project-lab .lab-own-stage .lab-small {margin: 12px 0;}
+    #ai-project-lab .lab-live-estimate {margin-top: 16px; color: var(--lab-accent); font-size: 17px; font-variant-numeric: tabular-nums;}
+    #ai-project-lab .lab-brief {white-space: pre-wrap; overflow-wrap: anywhere; padding: 16px; border: 1px solid var(--lab-line); background: var(--lab-surface); border-radius: 8px; user-select: text;}
+    #ai-project-lab .lab-end {padding: 15px 26px; color: var(--lab-muted); font-size: 12px; border-top: 1px solid var(--lab-line); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;}
+    #ai-project-lab .lab-inline-note {color: var(--lab-muted); margin-top: 10px; font-size: 12px;}
+    @media(max-width:620px) {
+      #ai-project-lab .lab-top, #ai-project-lab .lab-main, #ai-project-lab .lab-end {padding: 18px;}
+      #ai-project-lab .lab-choices {grid-template-columns: 1fr;}
+      #ai-project-lab .lab-choice {padding: 14px 16px;}
+      #ai-project-lab .lab-choice .lab-letter {margin-bottom: 4px;}
+      #ai-project-lab .lab-choice .lab-pitch {min-height: 0;}
+      #ai-project-lab .lab-choice .lab-time {font-size: 20px; margin-top: 8px;}
+      #ai-project-lab .lab-control-grid, #ai-project-lab .lab-fields {grid-template-columns: 1fr;}
+      #ai-project-lab .lab-flow {grid-template-columns: 1fr; gap: 20px;}
+      #ai-project-lab .lab-stage + .lab-stage:before {display: none;}
+      #ai-project-lab .lab-stat-value {font-size: 23px;}
+      #ai-project-lab .lab-results {gap: 10px;}
+      #ai-project-lab h1 {font-size: 25px;}
+      #ai-project-lab .lab-intro {display: block;}
+      #ai-project-lab .lab-intro > button {margin-top: 14px;}
+      #ai-project-lab .lab-own-stage {padding: 15px;}
+      #ai-project-lab .lab-step {padding: 8px 10px;}
+    }
+    @media(prefers-reduced-motion:reduce) {#ai-project-lab * {transition: none !important;}}
+  </style>
+  <div class="lab-top">
+    <div class="lab-brand"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--lab-accent)"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg> AI Project Lab</div>
+    <div class="lab-tabs" role="tablist" aria-label="Workshop mode">
+      <button id="lab-tab-challenge" role="tab" aria-selected="true" aria-controls="lab-challenge" type="button" data-tab="challenge">Try the challenge</button>
+      <button id="lab-tab-own" role="tab" aria-selected="false" aria-controls="lab-own" type="button" data-tab="own">Work on my idea</button>
+    </div>
+  </div>
+  <div class="lab-main">
+    <div id="lab-challenge" role="tabpanel" aria-labelledby="lab-tab-challenge">
+      <div class="lab-intro">
+        <div><div class="lab-eyebrow">Choose · investigate · redesign</div><h1>Which AI project would you try first?</h1>
+        <p>A service team receives 50 requests a day and completes 36. You can investigate one project. Your goal: stop the backlog growing while meeting the team’s quality and recovery limits.</p></div>
+      </div>
+      <div class="lab-choices" aria-label="Choose a project">
+        <button class="lab-choice" type="button" data-project="draft" aria-pressed="false">
+          <span class="lab-letter">PROJECT A · PREPARATION</span><span class="lab-name">Draft the request</span>
+          <span class="lab-pitch">AI turns incoming information into a completed request.</span>
+          <span class="lab-time">12 → 2 <small>minutes to draft</small></span><span class="lab-small">Checking comes next.</span>
+        </button>
+        <button class="lab-choice" type="button" data-project="approve" aria-pressed="false">
+          <span class="lab-letter">PROJECT B · DECISION</span><span class="lab-name">Automate approval</span>
+          <span class="lab-pitch">AI decides whether the request can proceed.</span>
+          <span class="lab-time">20 → 1 <small>minute to decide</small></span><span class="lab-small">Exceptions need people.</span>
+        </button>
+        <button class="lab-choice" type="button" data-project="evidence" aria-pressed="false">
+          <span class="lab-letter">PROJECT C · EXPERT SUPPORT</span><span class="lab-name">Build the evidence packet</span>
+          <span class="lab-pitch">AI gathers the evidence. The expert makes the decision.</span>
+          <span class="lab-time">2 <small>minutes to prepare</small></span><span class="lab-small">Expert review still required.</span>
+        </button>
+      </div>
+      <div class="lab-actions"><button class="lab-button lab-primary" id="lab-reveal" type="button" disabled>Investigate my choice</button><span class="lab-small" id="lab-choice-status">Select a project. The pitch is only the starting point.</span></div>
+      <div id="lab-investigation" hidden>
+        <section class="lab-section" aria-label="Whole workflow">
+          <div class="lab-section-head"><h2>Follow the work all the way through.</h2><span class="lab-small">Daily capacity · fixed teams · no staff redeployment</span></div>
+          <div class="lab-flow" id="lab-flow" role="group" aria-label="Capacity by workflow stage"></div>
+          <div class="lab-results" aria-live="polite" id="lab-results"></div>
+          <div class="lab-feedback" id="lab-flow-feedback"><strong id="lab-flow-title"></strong><p id="lab-flow-copy"></p></div>
+          <div class="lab-control-grid" style="margin-top:18px">
+            <label><span class="lab-range-head"><span>Requests arriving each day</span><output id="lab-demand-value">50</output></span><input id="lab-demand" type="range" min="10" max="100" value="50" step="1"></label>
+            <label><span class="lab-range-head"><span>Checking each AI case</span><output id="lab-review-value">0 min</output></span><input id="lab-review" type="range" min="0" max="30" value="0" step="1"></label>
+          </div>
+          <p class="lab-inline-note">Checking time and detection ability are separate assumptions. Faster checking does not establish that the same errors will be caught.</p>
+        </section>
+        <section class="lab-section" aria-label="Automation stress test">
+          <div class="lab-section-head"><h2>Now change the conditions.</h2><span class="lab-small">Explicit teaching assumptions</span></div>
+          <div class="lab-scenario-buttons" role="group" aria-label="Operating condition">
+            <button class="lab-button" type="button" data-scenario="normal" aria-pressed="true">Normal operations</button>
+            <button class="lab-button" type="button" data-scenario="skills" aria-pressed="false">Recovery skills weaken</button>
+            <button class="lab-button" type="button" data-scenario="source" aria-pressed="false">Shared AI source is wrong</button>
+          </div>
+          <div class="lab-switches">
+            <label class="lab-toggle"><input type="checkbox" id="lab-practice">Retain recovery practice: 30 staff min/day</label>
+            <label class="lab-toggle" id="lab-approval-label" hidden><input type="checkbox" id="lab-approval">Add expert approval: at least 10 min/case</label>
+          </div>
+          <div class="lab-risk-strip">
+            <div><div class="lab-stat-label">Scenario errors per 1,000 cases</div><div class="lab-risk-value" id="lab-errors">0</div><div class="lab-small">Current process: 1.0 · trial limit: 2.0</div></div>
+            <div><div class="lab-stat-label">Cases exposed before a stop</div><div class="lab-risk-value" id="lab-exposure">0</div><div class="lab-small">Current process: 1 · trial limit: 5</div></div>
+          </div>
+          <div class="lab-feedback" id="lab-risk-feedback" aria-live="polite"><strong id="lab-risk-title"></strong><p id="lab-risk-copy"></p></div>
+          <details>
+            <summary>Inspect every assumption and calculation</summary>
+            <div id="lab-audit"></div>
+            <p class="lab-inline-note">Recoverable service errors only. The limits are fictional management choices. Rate estimates do not establish protection from severe harm. The source event is one common failure, not many independent failures.</p>
+          </details>
+        </section>
+        <section class="lab-section" aria-label="Compare projects under the same conditions">
+          <div class="lab-section-head"><h2>Compare the projects under these conditions.</h2><span class="lab-small">Current candidate settings retained</span></div>
+          <div class="lab-table-wrap"><table><thead><tr><th>Project</th><th>More cases/day</th><th>Errors/1,000</th><th>Next decision</th></tr></thead><tbody id="lab-comparison"></tbody></table></div>
+          <div class="lab-feedback" id="lab-next"><strong id="lab-next-title"></strong><p id="lab-next-copy"></p></div>
+          <div class="lab-actions"><button class="lab-button lab-primary" type="button" id="lab-to-own">Apply this to my work</button></div>
+        </section>
+      </div>
+      <details><summary>What this workshop is based on</summary>
+        <p class="lab-small">A practical synthesis of business value, whole-workflow improvement, and human capability during automation. Challenge figures are invented; they are not performance claims about an AI product.</p>
+        <div class="lab-sources"><a target="_blank" rel="noreferrer" href="https://www.strassmann.com/pubs/cik/cik-value.shtml">Strassmann: business value</a><a target="_blank" rel="noreferrer" href="https://dora.dev/capabilities/work-visibility-in-value-stream/">DORA: the whole workflow</a><a target="_blank" rel="noreferrer" href="https://davidjusth.com/s/Ironies-of-Automation_Bainbridge_1983.pdf">Bainbridge: automation and skill</a><a target="_blank" rel="noreferrer" href="https://airc.nist.gov/airmf-resources/airmf/1-sec-risk/">NIST: explicit risk tolerance</a></div>
+      </details>
+    </div>
+    <div id="lab-own" role="tabpanel" aria-labelledby="lab-tab-own" hidden>
+      <div class="lab-intro"><div><div class="lab-eyebrow">From an idea to a decision</div><h1>Bring a piece of your own work.</h1><p>Use cases, minutes and consequences. Leave unknowns blank. The result identifies what your next test needs to establish.</p></div><button class="lab-button" id="lab-example" type="button">Load a practice example</button></div>
+      <div class="lab-steps" aria-label="Project assessment steps">
+        <button class="lab-step" type="button" data-step="0" aria-current="step">1. The opportunity</button>
+        <button class="lab-step" type="button" data-step="1">2. The whole effort</button>
+        <button class="lab-step" type="button" data-step="2">3. The consequences</button>
+        <button class="lab-step" type="button" data-step="3">4. Your next test</button>
+      </div>
+      <div class="lab-own-stage" data-own-stage="0">
+        <h2>What changes for the business?</h2>
+        <div class="lab-fields">
+          <label class="lab-full">Name the work<input id="own-name" maxlength="100" placeholder="For example, preparing service escalations"></label>
+          <label class="lab-full">What gets stuck, goes wrong, or never gets done?<textarea id="own-problem" rows="2" maxlength="700" placeholder="Describe a recent case and its consequence."></textarea></label>
+          <label>Primary goal<select id="own-goal"><option value="capacity">Release usable capacity</option><option value="flow">Complete more or finish sooner</option><option value="quality">Improve the quality of outcomes</option><option value="risk">Reduce harmful errors</option></select></label>
+          <label>Who can act on the improvement?<input id="own-owner" maxlength="100" placeholder="Role or team responsible"></label>
+          <label class="lab-full">What would improve, and how would it be used?<textarea id="own-use" rows="2" maxlength="700" placeholder="For example, use released time to clear a specific backlog."></textarea></label>
+        </div>
+        <div class="lab-actions"><button class="lab-button lab-primary" type="button" data-go-step="1">Count the whole effort</button></div>
+      </div>
+      <div class="lab-own-stage" data-own-stage="1" hidden>
+        <h2>Include the work around the AI.</h2>
+        <p class="lab-small">Use staff effort, not unattended computer time. Include affected colleagues. Enter 0 only when the work is truly absent.</p>
+        <div class="lab-fields">
+          <label>Cases each week<input id="own-volume" type="number" min="0" max="10000000" step="1" placeholder="Unknown"></label>
+          <label>Current total staff minutes per case<input id="own-before" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label>AI handling and preparation, min/case<input id="own-handling" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label>Checking the result, min/case<input id="own-checking" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label>Cases needing correction, %<input id="own-fixrate" type="number" min="0" max="100" step="0.1" placeholder="Unknown"></label>
+          <label>Extra minutes for each corrected case<input id="own-fixmins" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label>Weekly upkeep and practice, staff hours<input id="own-upkeep" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label>Initial setup, staff hours<input id="own-setup" type="number" min="0" max="1000000" step="0.1" placeholder="Unknown"></label>
+          <label class="lab-full">Where do these estimates come from?<select id="own-evidence"><option value="unknown">Not established</option><option value="estimate">My estimates</option><option value="sample">Observed examples</option><option value="trial">A representative comparative trial</option></select></label>
+          <label>Observed change in the primary business outcome<select id="own-outcome"><option value="unknown">Not established</option><option value="better">Improved</option><option value="same">No improvement</option><option value="worse">Worsened</option></select></label>
+          <label>Outcome measure and comparison<input id="own-proof" maxlength="500" placeholder="For example, returned cases: 12% before, 7% in trial"></label>
+        </div>
+        <div id="own-validation" role="alert" class="lab-inline-note"></div>
+        <div class="lab-live-estimate" id="own-live" aria-live="polite">The time estimate will appear as you enter the required values.</div>
+        <div class="lab-actions"><button class="lab-button" type="button" data-go-step="0">Back</button><button class="lab-button lab-primary" type="button" data-go-step="2">Walk through a mistake</button></div>
+      </div>
+      <div class="lab-own-stage" data-own-stage="2" hidden>
+        <h2>Imagine a plausible bad result.</h2>
+        <div class="lab-fields">
+          <label class="lab-full">What would happen before anyone noticed?<textarea id="own-mistake" rows="2" maxlength="700" placeholder="Who is affected? How far can a mistake spread?"></textarea></label>
+          <label>Can the trial access the required information?<select id="own-access"><option value="unknown">Unknown</option><option value="yes">Yes, access is established</option><option value="no">No, an access or data gap remains</option></select></label>
+          <label>Can you judge the business outcome?<select id="own-judge"><option value="unknown">Unknown</option><option value="yes">Yes, with a defined comparison</option><option value="no">No reliable way yet</option></select></label>
+          <label>Can trial consequences be contained?<select id="own-contain"><option value="unknown">Unknown</option><option value="yes">Yes, scope and stop limits are defined</option><option value="no">No, consequences can escape the trial</option></select></label>
+          <label>Can people detect problems and recover?<select id="own-recovery"><option value="unknown">Unknown</option><option value="yes">Yes, under the proposed staffing</option><option value="no">No, recovery depends on missing capability</option></select></label>
+          <label class="lab-full">What information, skills and fallback must remain?<textarea id="own-fallback" rows="2" maxlength="700" placeholder="Include how people keep these skills after six months of relying on AI."></textarea></label>
+        </div>
+        <div class="lab-actions"><button class="lab-button" type="button" data-go-step="1">Back</button><button class="lab-button lab-primary" type="button" data-go-step="3">Build my next test</button></div>
+      </div>
+      <div data-own-stage="3" hidden>
+        <div class="lab-results" id="own-metrics" aria-live="polite"></div>
+        <div class="lab-feedback" id="own-decision"><strong id="own-decision-title"></strong><p id="own-decision-copy"></p></div>
+        <div class="lab-section-head" style="margin-top:22px"><h2>Your working brief</h2><span class="lab-small">Based only on your entries</span></div>
+        <div class="lab-brief" id="own-brief"></div>
+        <div class="lab-actions"><button class="lab-button lab-primary" type="button" id="own-shortlist">Add to my shortlist</button><button class="lab-button" type="button" id="own-copy">Copy brief</button><button class="lab-button" type="button" data-go-step="0">Revise the idea</button><span id="own-copy-status" class="lab-small" aria-live="polite"></span></div>
+        <p class="lab-inline-note">Hours measure effort. They become financial value only through an actual use or avoided expense. Software costs, other spending and financial consequences still need an investment assessment.</p>
+      </div>
+      <section id="own-shortlist-section" class="lab-section" hidden><div class="lab-section-head"><h2>Your shortlist</h2><span class="lab-small">This open session · no combined score</span></div>
+        <div class="lab-table-wrap"><table><thead><tr><th>Candidate</th><th>Hours/week</th><th>Next action</th></tr></thead><tbody id="own-shortlist-body"></tbody></table></div>
+        <p class="lab-inline-note">Compare candidates serving the same goal. Where benefits differ, agree the business priority before ranking them.</p>
+      </section>
+    </div>
+  </div>
+  <div class="lab-end"><span>Business value · whole workflow · retained human capability</span><span>Challenge: illustrative model. Your idea: your assumptions.</span></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('ai-project-lab');
+  const q = id => root.querySelector('#' + id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (x, digits=1) => Number.isFinite(x) ? x.toLocaleString('en-US',{maximumFractionDigits:digits}) : 'Unknown';
+  const sign = x => (x>0 ? '+' : '') + fmt(x);
+  const projects = {
+    draft:{name:'Draft the request',stage:0,handling:2,review:4,rework:1,bad:.03,catch:.98,exposure:1},
+    approve:{name:'Automate approval',stage:1,handling:1,review:1,rework:1,bad:.04,catch:.5,exposure:50},
+    evidence:{name:'Build the evidence packet',stage:1,handling:2,review:10,rework:1,bad:.04,catch:.98,exposure:1}
+  };
+  const state = {project:null,revealed:false,demand:50,scenario:'normal',practice:false,approval:false,reviews:{draft:4,approve:1,evidence:10},step:0,shortlist:[]};
+  function model(key) {
+    const p = projects[key];
+    let review = state.reviews[key], detect = p.catch, bad = p.bad, rework = p.rework, exposure = p.exposure;
+    if(key==='approve' && state.approval) {review=Math.max(10,review);detect=.98;exposure=1;}
+    if(state.scenario==='skills') {
+      review += state.practice ? 1 : 6;
+      rework *= state.practice ? 1.25 : 2;
+      detect = Math.min(detect, state.practice ? .97 : .8);
+      if(key==='approve' && !state.approval) {detect=state.practice ? .6 : .3;exposure=state.practice ? 50 : 100;}
+    }
+    if(state.scenario==='source') {
+      bad=.2; rework*=3;
+      detect=Math.min(detect, state.practice ? .97 : .8);
+      if(key==='approve' && !state.approval) {detect=.2;exposure=100;}
+    }
+    const times=[12,20,6], minutes=[720,720,360];
+    times[p.stage]=p.handling+review+rework;
+    if(state.practice) minutes[p.stage]-=30;
+    const capacity=times.map((x,i)=>minutes[i]/x);
+    const baseDone=Math.min(state.demand,36);
+    const done=Math.min(state.demand,Math.floor(Math.min(...capacity)));
+    const errors=1000*bad*(1-detect);
+    return {key,p,review,detect,bad,rework,exposure,times,minutes,capacity,baseDone,done,
+      gained:done-baseDone,backlog:Math.max(0,state.demand-done),errors,
+      sameVolumeHours:(baseDone*((12+20+6)-times.reduce((a,b)=>a+b,0))-(state.practice?30:0))/60,
+      errorsDay:done*errors/1000,allowed:errors<=2+1e-8 && exposure<=5};
+  }
+  function stat(label,value,note) {return '<div><div class="lab-stat-label">'+esc(label)+'</div><div class="lab-stat-value">'+esc(value)+'</div><div class="lab-stat-note">'+esc(note)+'</div></div>';}
+  function choose(key) {
+    state.project=key;
+    root.querySelectorAll('[data-project]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.project===key)));
+    q('lab-reveal').disabled=false;
+    q('lab-choice-status').textContent='Selected: '+projects[key].name;
+    q('lab-review').value=state.reviews[key];
+    if(state.revealed) render();
+  }
+  function render() {
+    if(!state.project) return;
+    const m=model(state.project), baseBacklog=Math.max(0,state.demand-m.baseDone);
+    q('lab-review-value').textContent=fmt(state.reviews[state.project])+' min';
+    q('lab-demand-value').textContent=state.demand;
+    q('lab-approval-label').hidden=state.project!=='approve';
+    const names=['1. Prepare','2. Review and decide','3. Fulfil'];
+    const limit=Math.min(...m.capacity);
+    const max=Math.max(state.demand,...m.capacity,60);
+    q('lab-flow').innerHTML=names.map((name,i)=>{
+      const limited=m.capacity[i]===limit && limit<state.demand;
+      return '<div class="lab-stage" data-limited="'+limited+'"><div class="lab-stage-head"><strong>'+name+'</strong><span class="lab-small">'+[2,2,1][i]+' staff</span></div><div class="lab-number">'+fmt(m.capacity[i])+' cases/day capacity</div><div class="lab-track" role="meter" aria-label="'+name+' capacity in cases per day" aria-valuenow="'+m.capacity[i]+'" aria-valuemin="0" aria-valuemax="'+max+'"><div class="lab-fill" style="width:'+m.capacity[i]/max*100+'%"></div></div><div class="lab-small">'+fmt(m.times[i])+' staff min/case</div><div class="lab-limiter">'+(limited?'Limits completed work':i===m.p.stage?'AI changes this stage':'')+'</div></div>';
+    }).join('');
+    q('lab-results').innerHTML=stat('Completed cases/day',fmt(m.done),'Current process: '+fmt(m.baseDone))+
+      stat('Additional completions',sign(m.gained),'At the same daily demand')+stat('Backlog added/day',fmt(m.backlog),'Current process: '+fmt(baseBacklog));
+    q('lab-flow-feedback').dataset.tone=m.gained>0?'good':m.gained<0?'bad':'warn';
+    if(m.gained>0) {
+      q('lab-flow-title').textContent='The improvement reaches completed work.';
+      q('lab-flow-copy').textContent='This design adds '+fmt(m.gained)+' completions a day under these assumptions.'+(m.backlog===0?' Matching arrivals stops new backlog growth; clearing an existing queue needs additional capacity.':' The queue still grows by '+fmt(m.backlog)+' cases/day.')+' Quality and failure exposure remain separate checks.';
+    } else if(m.gained<0) {
+      q('lab-flow-title').textContent='The proposed workflow completes less work.';
+      q('lab-flow-copy').textContent='Checking, correction and retained capability now consume more capacity than the design releases. Revise the design or test the assumption causing this loss.';
+    } else {
+      q('lab-flow-title').textContent=state.demand<=36?'Demand limits the output gain.':'A faster task leaves the bottleneck in place.';
+      q('lab-flow-copy').textContent='At the original completed volume, this changes staff effort by '+fmt(Math.abs(m.sameVolumeHours))+' hours/day '+(m.sameVolumeHours>=0?'released':'added')+'. A named use or avoided expense could make that valuable; output has not increased in this fixed-team model.';
+    }
+    q('lab-errors').textContent=fmt(m.errors,2);
+    q('lab-errors').dataset.breach=String(m.errors>2+1e-8);
+    q('lab-exposure').textContent=m.exposure;
+    q('lab-exposure').dataset.breach=String(m.exposure>5);
+    q('lab-risk-feedback').dataset.tone=m.allowed?'good':'bad';
+    q('lab-risk-title').textContent=m.allowed?'The assumed controls meet this trial’s two limits.':'This design exceeds the trial’s stated limits.';
+    let riskCopy=state.scenario==='normal'?'The error rate includes the chance of catching a bad case before release. Human checking is an assumption to validate.':
+      state.scenario==='skills'?'Reduced practice adds review and recovery effort and lowers detection. Retained practice costs time and changes these explicit assumptions.':
+      'One wrong shared source can affect many cases together. Averages do not bound the size of that event; the exposure limit is checked separately.';
+    if(state.project==='approve'&&!state.approval) riskCopy+=' Add expert approval to test a narrower operating design.';
+    q('lab-risk-copy').textContent=riskCopy;
+    q('lab-audit').innerHTML='<div class="lab-table-wrap"><table><tbody>'+
+      '<tr><th>Staff capacity</th><td>2 people in preparation, 2 in review, 1 in fulfilment; each has 360 productive minutes/day.</td></tr>'+
+      '<tr><th>AI stage effort per case</th><td>'+fmt(m.p.handling)+' handling + '+fmt(m.review)+' checking + '+fmt(m.rework)+' average correction = '+fmt(m.times[m.p.stage])+' minutes.</td></tr>'+
+      '<tr><th>Retained practice</th><td>'+(state.practice?'30 minutes/day deducted from the AI stage’s staff capacity.':'No additional practice time funded.')+'</td></tr>'+
+      '<tr><th>Stage capacity</th><td>Available staff minutes divided by staff minutes/case. Completed cases are the smaller of demand and the slowest stage’s whole-case capacity.</td></tr>'+
+      '<tr><th>Errors reaching customers</th><td>1,000 × '+fmt(100*m.bad)+'% bad cases × '+fmt(100*(1-m.detect))+'% missed = '+fmt(m.errors,2)+' per 1,000. If this condition persists: '+fmt(m.errorsDay,3)+'/day; current process: '+fmt(m.baseDone*.001,3)+'/day.</td></tr>'+
+      '<tr><th>Common failure exposure</th><td>'+m.exposure+' cases can be affected before the stop takes effect. This is a separate assumption, not inferred from the average error rate.</td></tr>'+
+      '<tr><th>Counting benefits</th><td>Extra output and staff time at the original volume are alternative ways to use capacity. Do not add them as independent financial benefits.</td></tr>'+
+      '<tr><th>Stress assumptions</th><td>Normal correction effort is 1 min/case. Weak skills add 6 checking minutes, double correction and cap detection at 80%. Effective practice changes these to 1 extra minute, 1.25× correction and a 97% cap. Unguarded automated approval has separate detection assumptions of 30% or 60%. These are invented sensitivity cases, not measured effects of training.</td></tr>'+
+      '<tr><th>Shared-source event</th><td>Bad cases rise to 20%, correction triples and detection is capped at 80%, or 97% with effective practice. Unguarded automated approval detects 20% and exposes up to 100 cases. No likelihood is assigned to this stress event.</td></tr>'+
+      '<tr><th>Limits of this model</th><td>Constant averages, fixed dedicated teams, full adoption, no queuing variability or business growth forecast. The baseline is unchanged by AI-specific stress. Integration effort and cash costs are not estimated. This is an operating screen, not an investment ranking.</td></tr>'+
+      '</tbody></table></div>';
+    const ordered=['draft','approve','evidence'].map(model);
+    q('lab-comparison').innerHTML=ordered.map(x=>{
+      const verdict=!x.allowed?'Redesign controls':x.gained>0?'Test the flow gain':x.gained<0?'Redesign the effort':'Find a use for capacity';
+      return '<tr><td><button type="button" data-compare="'+x.key+'">'+esc(x.p.name)+'</button></td><td>'+sign(x.gained)+'</td><td>'+fmt(x.errors,2)+'</td><td>'+verdict+'</td></tr>';
+    }).join('');
+    const good=ordered.filter(x=>x.allowed&&x.gained>0);
+    if(good.length) {
+      const best=Math.max(...good.map(x=>x.gained));
+      const leaders=good.filter(x=>x.gained===best);
+      q('lab-next-title').textContent=leaders.length===1?'Candidate to investigate: '+leaders[0].p.name:'The operating estimates are tied.';
+      q('lab-next-copy').textContent=leaders.length===1?
+        'This design meets the operating screen. Before funding a trial, assess its cost and whether the evidence could change the decision. Test full checking and correction effort, completed work, escaped errors, and recovery.':
+        'Compare setup, running costs and the evidence needed to validate the controls. These assumptions do not justify inventing a winner.';
+    } else {
+      q('lab-next-title').textContent='No project yet demonstrates the required combination.';
+      q('lab-next-copy').textContent='Change the design or the assumptions you can justify. A capacity benefit may still matter if someone can use it; unacceptable exposure needs a different operating design.';
+    }
+    q('lab-next').dataset.tone=good.length?'good':'warn';
+  }
+  function tab(name) {
+    ['challenge','own'].forEach(x=>{
+      q('lab-'+x).hidden=x!==name;
+      q('lab-tab-'+x).setAttribute('aria-selected',String(x===name));
+    });
+    if(name==='own') renderOwn();
+  }
+  function ownNumber(id) {
+    const el=q('own-'+id), value=el.value.trim();
+    if(value==='') return null;
+    const n=Number(value);
+    return Number.isFinite(n)&&n>=0&&n<=Number(el.max)?n:null;
+  }
+  function ownData() {
+    const textIds=['name','problem','owner','use','mistake','fallback','goal','evidence','access','judge','contain','recovery','outcome','proof'];
+    const d=Object.fromEntries(textIds.map(k=>[k,q('own-'+k).value.trim()]));
+    ['volume','before','handling','checking','fixrate','fixmins','upkeep','setup'].forEach(k=>d[k]=ownNumber(k));
+    return d;
+  }
+  function assess(d) {
+    const complete=['volume','before','handling','checking','fixrate','upkeep'].every(k=>d[k]!==null)&&(d.fixrate===0||d.fixmins!==null);
+    const correction=d.fixrate===0?0:d.fixrate/100*d.fixmins;
+    const perCase=complete?d.before-d.handling-d.checking-correction:null;
+    const hours=complete?d.volume*perCase/60-d.upkeep:null;
+    const reviewBudget=complete&&d.volume>0?d.before-d.handling-correction-d.upkeep*60/d.volume:null;
+    const payback=hours>0&&d.setup!==null?d.setup/hours:null;
+    let title,why,test,tone='warn';
+    if(!d.name||!d.problem||!d.use||!d.owner) {
+      title='Make the opportunity concrete.';
+      why='The problem, intended use of the improvement and accountable owner are needed before comparing candidates.';
+      test='Trace recent real cases with the receiving team. Identify the consequence to improve and the person who can put the gain to use.';
+    } else if(d.access!=='yes') {
+      title='Establish the information path.';
+      why='A useful test needs the information that the proposed workflow would actually be able to use.';
+      test='Check access, quality and completeness on representative cases, including exceptions. Resolve the information gap before judging an AI output.';
+    } else if(d.judge!=='yes') {
+      title='Define how to recognize improvement.';
+      why='There is no established way to compare the business outcome yet.';
+      test='Agree an observable outcome and acceptance criteria with the people using the result. Check whether reviewers can apply them consistently.';
+    } else if(d.contain!=='yes'||d.recovery!=='yes'||!d.mistake||!d.fallback) {
+      title='Design a contained test.';
+      why='The consequences, stop limits or recovery capability are not yet established.';
+      test='Use historical or shadow cases with no live action. Rehearse a plausible error, measure detection and recovery, and define the skills and stop limits needed for a live trial.';
+    } else if(!complete) {
+      title='Measure the missing effort.';
+      why='The complete handling, checking, correction and upkeep burden is still unknown.';
+      test='Time the current and assisted workflows on representative work, including downstream corrections. Record all staff effort and the number of cases.';
+    } else if(d.evidence==='trial'&&(d.outcome==='same'||d.outcome==='worse')) {
+      title='Reconsider the proposed change.';
+      why='The primary business outcome has '+(d.outcome==='worse'?'worsened':'not improved')+' in the stated trial. Task-level effort savings do not override that result.';
+      test='Investigate the cause with the people receiving the output. Compare a narrower design or an alternative process change, and retest the primary outcome.';
+      tone='bad';
+    } else if(hours<=0&&d.goal==='capacity') {
+      title='Redesign before claiming a capacity gain.';
+      why='The entered assumptions add '+fmt(Math.abs(hours))+' staff hours/week or leave effort unchanged.';
+      test='Investigate the largest effort component. Test a narrower AI task or simpler process change, and compare total staff effort again.';
+      tone='bad';
+    } else if(d.evidence!=='trial') {
+      title='Test the assumption that carries the case.';
+      why=hours>0?'The entries suggest '+fmt(hours)+' hours/week released, but representative comparative evidence is still needed.':
+        'The proposed quality, speed or risk benefit needs to justify the extra effort.';
+      test=d.goal==='capacity'?'Compare complete staff effort on matched real cases. Count checking, corrections and upkeep. Confirm the owner can use the released capacity.':
+        d.goal==='flow'?'Compare completed work and total elapsed time through the whole workflow. Check whether downstream work or demand absorbs the gain.':
+        d.goal==='quality'?'Compare the agreed quality outcome on representative cases. Include the additional review and correction effort in the decision.':
+        'Compare escaped errors and their consequences with the current process. Deliberately exercise difficult cases and recovery; a quiet pilot alone does not establish rare-event safety.';
+    } else if(d.outcome!=='better'||!d.proof) {
+      title='Establish the outcome beyond the task.';
+      why='The trial label alone does not show that the intended business result improved.';
+      test='Record the primary outcome in the current and proposed workflows under comparable conditions. Check the receiving team and the planned use of the gain.';
+    } else {
+      title='Take the bounded case to the business owner.';
+      why='The stated evidence and controls support a scoped investment discussion. Costs, capture and deployment conditions still need confirmation.';
+      test='Review setup and running costs, actual use of the gain and the proposed operating scope. Agree limits and a review trigger before expansion.';
+      tone='good';
+    }
+    return {complete,perCase,hours,reviewBudget,payback,title,why,test,tone};
+  }
+  const goals={capacity:'Release usable capacity',flow:'Complete more or finish sooner',quality:'Improve the quality of outcomes',risk:'Reduce harmful errors'};
+  function buildBrief(d,a) {
+    const effort=a.complete?fmt(d.volume)+' cases/week. '+fmt(d.before)+' current min/case versus '+fmt(d.handling)+' handling + '+fmt(d.checking)+' checking + '+(d.fixrate===0?'0 correction':fmt(d.fixrate)+'% × '+fmt(d.fixmins)+' correction')+' min/case. '+fmt(d.upkeep)+' upkeep hours/week. Net: '+fmt(a.hours)+' hours/week released.':'Incomplete. Unknown values must be measured.';
+    const review=a.reviewBudget===null?'Review effort threshold: not yet calculable.':a.reviewBudget<=0?'Even zero checking would not release staff time at the other entered assumptions.':'To release staff time, checking must average less than '+fmt(a.reviewBudget)+' min/case at the other entered assumptions.';
+    const economic=d.goal==='capacity'?'The owner must confirm how the released capacity will be used or which expense will be avoided.':
+      'The outcome improvement must be compared with the complete additional effort and spending.';
+    return (d.name||'Unnamed opportunity')+'\n\n'+
+      'BUSINESS CHANGE\n'+(d.problem||'Problem: not established.')+'\nGoal: '+goals[d.goal]+'.\nUse: '+(d.use||'Not established.')+'\nOwner: '+(d.owner||'Not established.')+'\n\n'+
+      'EFFORT AND EVIDENCE\n'+effort+'\n'+review+'\nEvidence: '+q('own-evidence').selectedOptions[0].textContent+'.\nOutcome comparison: '+(d.proof||'Not recorded.')+'\n'+
+      (a.payback!==null?'Initial setup effort is recovered after about '+fmt(a.payback)+' weeks at a steady workload. This is effort payback, not financial ROI.\n':'')+
+      economic+'\n\n'+
+      'CONSEQUENCES AND RECOVERY\n'+(d.mistake||'Plausible mistake: not described.')+'\nRetained capability: '+(d.fallback||'Not established.')+'\n\n'+
+      'NEXT ACTION\n'+a.title+'\n'+a.test+'\n\n'+
+      'KEEP IT VALUABLE\nReview actual business outcomes, total effort, downstream work and recovery capability. Reassess after changes in model, workload, autonomy or staffing. Stop expansion if agreed consequence limits are breached; compare continued value with redesign or exit.';
+  }
+  function renderOwn() {
+    const d=ownData(),a=assess(d);
+    q('own-live').textContent=a.complete?(a.hours>=0?fmt(a.hours)+' staff hours/week released.':fmt(-a.hours)+' staff hours/week added.'):'Enter all recurring effort values to calculate the net change.';
+    q('own-metrics').innerHTML=stat('Staff hours/week released',a.hours===null?'Unknown':fmt(a.hours),'After checking, correction and upkeep')+
+      stat('Checking threshold',a.reviewBudget===null?'Unknown':a.reviewBudget<=0?'None':fmt(a.reviewBudget)+' min','Below this to release staff time')+
+      stat('Setup effort payback',a.payback===null?(a.hours!==null&&a.hours<=0?'Not recovered':'Unknown'):fmt(a.payback)+' weeks','If released capacity is used');
+    const invalid=Array.from(root.querySelectorAll('#lab-own input[type="number"]')).filter(el=>el.value!==''&&!el.validity.valid);
+    q('own-validation').textContent=invalid.length?'Check the entered numbers. Use nonnegative values within each field’s range; correction share cannot exceed 100%.':'';
+    q('own-decision').dataset.tone=a.tone;
+    q('own-decision-title').textContent=a.title;
+    q('own-decision-copy').textContent=a.why;
+    q('own-brief').textContent=buildBrief(d,a);
+    q('own-shortlist').disabled=!d.name;
+  }
+  function step(n) {
+    state.step=n;
+    root.querySelectorAll('[data-own-stage]').forEach(x=>x.hidden=Number(x.dataset.ownStage)!==n);
+    root.querySelectorAll('[data-step]').forEach(x=>{
+      if(Number(x.dataset.step)===n)x.setAttribute('aria-current','step');else x.removeAttribute('aria-current');
+    });
+    renderOwn();
+  }
+  function loadExample() {
+    const values={name:'Practice case: prepare service escalations',problem:'Specialists spend time reconstructing case histories, and incomplete handoffs are returned.',
+      goal:'capacity',owner:'Service operations lead',use:'Use the released specialist capacity to work through the existing escalation backlog.',
+      volume:120,before:15,handling:3,checking:5,fixrate:10,fixmins:20,upkeep:1,setup:12,evidence:'estimate',outcome:'unknown',proof:'',
+      mistake:'A missing exception could send a case to the wrong team and delay resolution.',access:'yes',judge:'yes',contain:'unknown',recovery:'unknown',
+      fallback:'Specialists retain access to original case records. A stop limit and recovery exercise still need to be designed.'};
+    for(const [k,v] of Object.entries(values))q('own-'+k).value=v;
+    step(0);renderOwn();
+  }
+  root.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.dataset.tab)tab(b.dataset.tab);
+    if(b.dataset.project)choose(b.dataset.project);
+    if(b.dataset.compare)choose(b.dataset.compare);
+    if(b.id==='lab-reveal') {state.revealed=true;q('lab-investigation').hidden=false;b.hidden=true;q('lab-choice-status').textContent='Keep comparing. Every project can be selected again.';render();}
+    if(b.dataset.scenario) {
+      state.scenario=b.dataset.scenario;
+      root.querySelectorAll('[data-scenario]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.scenario===state.scenario)));render();
+    }
+    if(b.id==='lab-to-own')tab('own');
+    if(b.dataset.step!==undefined)step(Number(b.dataset.step));
+    if(b.dataset.goStep!==undefined)step(Number(b.dataset.goStep));
+    if(b.id==='lab-example')loadExample();
+    if(b.id==='own-shortlist') {
+      const d=ownData(),a=assess(d),record={name:d.name,hours:a.hours,action:a.title,goal:d.goal};
+      const existing=state.shortlist.findIndex(x=>x.name===d.name);
+      if(existing>=0)state.shortlist[existing]=record;else state.shortlist.push(record);
+      q('own-shortlist-body').innerHTML=state.shortlist.map(x=>'<tr><td>'+esc(x.name)+'<div class="lab-small">'+esc(goals[x.goal])+'</div></td><td>'+fmt(x.hours)+'</td><td>'+esc(x.action)+'</td></tr>').join('');
+      q('own-shortlist-section').hidden=false;q('own-copy-status').textContent='Added to this session’s shortlist.';
+    }
+    if(b.id==='own-copy') {
+      const copyText=q('own-brief').textContent;
+      const fallback=()=>{const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(q('own-brief'));selection.removeAllRanges();selection.addRange(range);q('own-copy-status').textContent='Brief selected. Use your device’s Copy command.';};
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(copyText).then(()=>q('own-copy-status').textContent='Brief copied.').catch(fallback);else fallback();
+    }
+  });
+  root.addEventListener('input',e=>{
+    if(e.target.id==='lab-demand'){state.demand=Number(e.target.value);render();}
+    if(e.target.id==='lab-review'&&state.project){state.reviews[state.project]=Number(e.target.value);render();}
+    if(e.target.id.startsWith('own-'))renderOwn();
+  });
+  root.addEventListener('change',e=>{
+    if(e.target.id==='lab-practice'){state.practice=e.target.checked;render();}
+    if(e.target.id==='lab-approval'){state.approval=e.target.checked;render();}
+    if(e.target.id.startsWith('own-'))renderOwn();
+  });
+  renderOwn();
+})();
+</script>
+
+<!-- Workflow icon from Lucide. License:
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-->
+</body>
+</html>
